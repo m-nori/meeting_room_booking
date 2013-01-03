@@ -10,11 +10,13 @@ var express = require('express')
   , RedisStore = require('connect-redis')(express)
   , Session = express.session.Session
   , expressLayouts = require('express-ejs-layouts')
+  , expressValidator = require("express-validator")
+  , redis = require('redis')
   , lib = require('./lib')
-  , routes = require('./routes')
   ;
 
 var app = express();
+var db = redis;
 
 /**
  * App Setting
@@ -44,6 +46,7 @@ app.configure(function(){
     }
   }));
   app.use(expressLayouts);
+  app.use(expressValidator);
   app.use(app.router);
   app.use(require('less-middleware')({ src: __dirname + '/public' }));
   app.use(express.static(path.join(__dirname, 'public')));
@@ -59,7 +62,12 @@ app.configure('development', function(){
 /**
  * Routes Setting
  */
-app.get('/', routes.root);
+var routes = {
+    root: require('./routes/root').root()
+  , user: require('./routes/user').user()
+  , booking: require('./routes/booking').booking()
+};
+app.get('/', routes.root.index);
 app.post('/login', routes.user.login);
 app.get('/logout', routes.user.logout);
 app.get('/booking', lib.middles.loginRequired, routes.booking.index);

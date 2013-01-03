@@ -12,6 +12,8 @@
     "connect-redis": "*",
     "redis": "*",
     "socket.io": "*",
-    "express-ejs-layouts": "*"
+    "express-ejs-layouts": "*",
+    "validator": "*",
+    "express-validator": "*"
   }
 }
