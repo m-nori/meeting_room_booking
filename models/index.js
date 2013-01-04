@@ -1,3 +1,0 @@
-
-exports.user = require('./user');
-

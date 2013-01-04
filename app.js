@@ -16,7 +16,6 @@ var express = require('express')
   ;
 
 var app = express();
-var db = redis;
 
 /**
  * App Setting
@@ -62,9 +61,11 @@ app.configure('development', function(){
 /**
  * Routes Setting
  */
+var client = redis.createClient();
+var model = require('./models/model').model(client);
 var routes = {
     root: require('./routes/root').root()
-  , user: require('./routes/user').user()
+  , user: require('./routes/user').user(model)
   , booking: require('./routes/booking').booking()
 };
 app.get('/', routes.root.index);

@@ -1,5 +1,5 @@
 
-exports.root = function(){
+module.exports.root = function(){
   return {
     index: function(req, res, next) {
       if(req.session.userID) {
