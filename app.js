@@ -9,7 +9,6 @@ var express = require('express')
   , connect = require("express/node_modules/connect")
   , RedisStore = require('connect-redis')(express)
   , Session = express.session.Session
-  , expressLayouts = require('express-ejs-layouts')
   , expressValidator = require("express-validator")
   , redis = require('redis')
   , lib = require('./lib')
@@ -28,7 +27,7 @@ app.configure(function(){
   // 基本設定
   app.set('port', process.env.PORT || 3000);
   app.set('views', __dirname + '/views');
-  app.set('view engine', 'ejs');
+  app.set('view engine', 'jade');
   app.use(express.favicon());
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
@@ -44,8 +43,9 @@ app.configure(function(){
       httpOnly: false
     }
   }));
-  app.use(expressLayouts);
+  // その他拡張
   app.use(expressValidator);
+  // ルーティング
   app.use(app.router);
   app.use(require('less-middleware')({ src: __dirname + '/public' }));
   app.use(express.static(path.join(__dirname, 'public')));
@@ -56,6 +56,13 @@ app.configure(function(){
  */
 app.configure('development', function(){
   app.use(express.errorHandler());
+});
+
+/**
+ * Helper Setting
+ */
+app.locals({
+  title: 'Meeting Room Booking'
 });
 
 /**

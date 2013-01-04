@@ -1,0 +1,9 @@
+extends layout
+
+block content
+  form(action= "/login", method= "post")
+    | ID:
+    input(type= "text", name= "userID")
+    | PASS:
+    input(type= "text", name= "password")
+    input(type= "submit", value= "login")

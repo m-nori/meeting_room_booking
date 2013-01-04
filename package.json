@@ -7,14 +7,14 @@
   },
   "dependencies": {
     "express": "3.0.5",
-    "ejs": "*",
+    "jade": "*",
     "less-middleware": "*",
     "connect-redis": "*",
     "redis": "*",
     "socket.io": "*",
-    "express-ejs-layouts": "*",
     "validator": "*",
     "express-validator": "*",
-    "klass": "*"
+    "klass": "*",
+    "connect-flash": "*"
   }
 }
