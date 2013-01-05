@@ -10,7 +10,7 @@ block container
         .input-prepend
           span.add-on
             i.icon-user
-          input#id.span2(name= "id", type= "text") #{id}
+          input#id.span2(name= "id", type= "text", value= "#{id}")
 
     .control-group
       label.control-label(for= "password") password
@@ -18,11 +18,11 @@ block container
         .input-prepend
           span.add-on
             i.icon-lock
-          input#password.span2(name= "password", type= "password") #{password}
+          input#password.span2(name= "password", type= "password", value= "#{password}")
 
     button.btn.btn-primary(type= "submit") login
 
     div
       |new user?&nbsp;
-      a(href= "/") Click here to register
+      a(href= "/users/new") Click here to register
 

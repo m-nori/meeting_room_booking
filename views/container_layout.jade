@@ -2,10 +2,13 @@ extends layout
 
 block content
   .container
-    | !{errors}
-    | !{warnings}
-    | !{success}
+    div
+      | !{createErrorMessage(errors)}
+      | !{createWarningMessage(warnings)}
+      | !{createSuccessMessage(success)}
 
-    block container
+      block container
 
+    hr
     footer
+      p &copy; 2013

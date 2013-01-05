@@ -48,7 +48,7 @@ app.configure(function(){
   app.use(flash());
   app.use(expressValidator);
   // 動的ヘルパ消えてるから自作
-  app.use(lib.helpers);
+  app.use(lib.helpers.dynamic);
   // ルーティング
   app.use(app.router);
   app.use(require('less-middleware')({ src: __dirname + '/public' }));
@@ -65,9 +65,7 @@ app.configure('development', function(){
 /**
  * Helper Setting
  */
-app.locals({
-  title: 'Meeting Room Booking'
-});
+app.locals(lib.helpers.statics());
 
 /**
  * Routes Setting
@@ -77,6 +75,7 @@ var model = require('./models/model')(client);
 var routes = {
     root: require('./routes/root')()
   , session: require('./routes/session')(model)
+  , user: require('./routes/user')(model)
   , booking: require('./routes/booking')()
 };
 var middles = [lib.middles.loginRequired];
@@ -84,6 +83,8 @@ app.get('/', routes.root.index);
 app.get('/login', routes.session.new);
 app.post('/login', routes.session.create);
 app.get('/logout', routes.session.destroy);
+app.get('/users/new', routes.user.new);
+app.post('/users', routes.user.create);
 app.get('/booking', middles, routes.booking.index);
 
 /**

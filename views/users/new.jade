@@ -1,7 +1,7 @@
-extends container_layout
+extends ../container_layout
 
 block container
-  form.form(action= "/user/create", method= "post")
+  form.form-horizontal(action= "/users/create", method= "post")
     legend Input User Info
 
     .control-group
@@ -31,17 +31,21 @@ block container
     .control-group
       label.control-label(for= "name") name
       .controls
-        .input-prepend
-          span.add-on
-            i.icon-lock
-          input#name.span4(name= "name", type= "text")
+        input#name.span4(name= "name", type= "text")
 
     .control-group
-      label.control-label(for= "group") name
+      label.control-label(for= "group") group
       .controls
-        .input-prepend
-          span.add-on
-            i.icon-lock
-          input#name.span4(name= "group", type= "text")
+        input#group.span4(name= "group", type= "text")
 
-    button.btn.btn-primary(type= "submit") login
+    .control-group
+      label.control-label(for= "admin") admin
+      .controls
+        label.checkbox
+          input#admin(name= "admin", type= "checkbox")
+          |give admin rights
+
+    .form-actions
+      button.btn.btn-primary(type= "submit") Submit
+      | &nbsp;
+      button.btn(type= "reset") Cancel

@@ -37,7 +37,7 @@ module.exports = function(redis) {
         });
       },
 
-      auth: function(password) {
+      authenticate: function(password) {
         if (typeof password === 'undefined' || password !== this.password) {
           console.log("auth fail!");
           return false;
