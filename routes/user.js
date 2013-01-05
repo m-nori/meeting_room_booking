@@ -1,28 +1,52 @@
 
 module.exports.user = function(model) {
+  var utils = require('../lib').utils;
+
+  var validateLoginForm = function(req) {
+    req.assert('userID', 'Enter id').notEmpty();
+    req.assert('password', 'Enter password').notEmpty();
+    return req.validationErrors();
+  };
+
+  var checkUser = function(id, password, fn) {
+    model.User.get(id, function(err, user) {
+      var checkErrors = null;
+      if (!err) {
+        if (!user) {
+          checkErrors = utils.createCheckErrors("user not found");
+        }
+        else if (!user.auth(password)) {
+          checkErrors = utils.createCheckErrors("password is invalid");
+        }
+      }
+      fn(err, checkErrors);
+    });
+  };
+
   return {
-    login: function(req, res, next){
+    login: function(req, res, next) {
+      var validationErrors = validateLoginForm(req);
+      if (validationErrors) {
+        req.flash('errors', validationErrors);
+        return res.redirect('/');
+      }
+
       var id = req.body.userID;
       var password = req.body.password;
-      model.User.get(id, function(err, user) {
-        if (err) next(err);
-        if (!user) next(new Error('user not found'));
-        console.log(user);
-        if(user.auth(password)) {
-          req.session.userID = id;
-          res.redirect('/booking');
-        } else {
-          res.redirect('/');
+      checkUser(id, password, function(err, checkErrors) {
+        if (err) return next(err);
+        if (checkErrors) {
+          req.flash('errors', checkErrors);
+          return res.redirect('/');
         }
+        req.session.userID = id;
+        res.redirect('/Booking');
       })
     },
 
     logout: function(req, res, next) {
        req.session.destroy(function(err) {
-         if(err){
-           console.log(err);
-           next(err);
-         }
+         if (err) return next(err);
          res.redirect('/');
        });
     }

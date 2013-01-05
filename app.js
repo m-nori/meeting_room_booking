@@ -11,6 +11,7 @@ var express = require('express')
   , Session = express.session.Session
   , expressValidator = require("express-validator")
   , redis = require('redis')
+  , flash = require('connect-flash')
   , lib = require('./lib')
   ;
 
@@ -44,6 +45,7 @@ app.configure(function(){
     }
   }));
   // その他拡張
+  app.use(flash());
   app.use(expressValidator);
   // ルーティング
   app.use(app.router);
@@ -75,10 +77,11 @@ var routes = {
   , user: require('./routes/user').user(model)
   , booking: require('./routes/booking').booking()
 };
+var middles = [lib.middles.loginRequired];
 app.get('/', routes.root.index);
 app.post('/login', routes.user.login);
 app.get('/logout', routes.user.logout);
-app.get('/booking', lib.middles.loginRequired, routes.booking.index);
+app.get('/booking', middles, routes.booking.index);
 
 /**
  * Server Start
