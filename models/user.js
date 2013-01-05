@@ -3,6 +3,7 @@ module.exports = function(redis) {
   var User = require('klass')(function (o) {
     this.id = o.id || "";
     this.password = o.password || "";
+    this.password2 = o.password2 || "";
     this.name = o.name || "";
     this.group = o.group || "";
     this.admin = o.admin || false;

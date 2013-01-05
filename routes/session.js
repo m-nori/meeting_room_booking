@@ -20,8 +20,8 @@ module.exports = function(model) {
           res.redirect('/booking');
         }
         else {
-          req.flash('errors', utils.createCheckErrors("login error"));
-          req.flash('id', id);
+          utils.setMessage(req, 'errors', 'login fail')
+          utils.setFlash(req, {id: id});
           res.redirect('/login');
         }
       });
