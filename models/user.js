@@ -1,5 +1,5 @@
 
-module.exports.model = function(redis) {
+module.exports = function(redis) {
   var User = require('klass')(function (o) {
     this.id = o.id || "";
     this.password = o.password || "";

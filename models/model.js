@@ -1,7 +1,7 @@
 
-module.exports.model = function(redis) {
+module.exports = function(redis) {
   return {
-    User: require('./user').model(redis)
+    User: require('./user')(redis)
   }
 }
 

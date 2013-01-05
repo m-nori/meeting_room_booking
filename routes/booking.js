@@ -1,8 +1,8 @@
 
-module.exports.booking = function() {
+module.exports = function() {
   return {
     index: function(req, res, next) {
-      res.render('booking', { userID: req.session.userID } );
+      res.render('bookings/index', { userID: req.session.userID } );
     }
   }
 };

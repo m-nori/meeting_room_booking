@@ -73,16 +73,16 @@ app.locals({
  * Routes Setting
  */
 var client = redis.createClient();
-var model = require('./models/model').model(client);
+var model = require('./models/model')(client);
 var routes = {
-    root: require('./routes/root').root()
-  , user: require('./routes/user').user(model)
-  , booking: require('./routes/booking').booking()
+    root: require('./routes/root')()
+  , session: require('./routes/session')(model)
+  , booking: require('./routes/booking')()
 };
 var middles = [lib.middles.loginRequired];
 app.get('/', routes.root.index);
-app.post('/login', routes.user.login);
-app.get('/logout', routes.user.logout);
+app.post('/login', routes.session.create);
+app.get('/logout', routes.session.destroy);
 app.get('/booking', middles, routes.booking.index);
 
 /**
