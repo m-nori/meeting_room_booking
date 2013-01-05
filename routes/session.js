@@ -2,8 +2,15 @@
 module.exports = function(model) {
   var utils = require('../lib').utils;
 
+  var createForm = function(req) {
+    return {
+        id: req.body.id || ""
+      , password: req.body.password || ""
+    }
+  }
+
   var validateLoginForm = function(req) {
-    req.assert('userID', 'Enter id').notEmpty();
+    req.assert('id', 'Enter id').notEmpty();
     req.assert('password', 'Enter password').notEmpty();
     return req.validationErrors();
   };
@@ -19,35 +26,40 @@ module.exports = function(model) {
           checkErrors = utils.createCheckErrors("password is invalid");
         }
       }
-      fn(err, checkErrors);
+      fn(err, checkErrors, user);
     });
   };
 
   return {
+    new: function(req, res, next) {
+      var form = createForm(req);
+      res.render('sessions/new', form);
+    },
+
     create: function(req, res, next) {
+      var form = createForm(req);
       var validationErrors = validateLoginForm(req);
       if (validationErrors) {
         req.flash('errors', validationErrors);
-        return res.redirect('/');
+        return res.redirect('/login');
       }
 
-      var id = req.body.userID;
-      var password = req.body.password;
-      checkUser(id, password, function(err, checkErrors) {
+      checkUser(form.id, form.password, function(err, checkErrors, user) {
         if (err) return next(err);
         if (checkErrors) {
           req.flash('errors', checkErrors);
-          return res.redirect('/');
+          return res.redirect('/login');
         }
-        req.session.userID = id;
-        res.redirect('/Booking');
+        req.session.uid = user.id;
+        req.session.name = user.name;
+        res.redirect('/booking');
       })
     },
 
     destroy: function(req, res, next) {
        req.session.destroy(function(err) {
          if (err) return next(err);
-         res.redirect('/');
+         res.redirect('/login');
        });
     }
   };

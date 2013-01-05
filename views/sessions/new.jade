@@ -1,18 +1,16 @@
-extends container_layout
+extends ../container_layout
 
 block container
-  | !{errors}
-
   form.form(action= "/login", method= "post")
     legend Please login
 
     .control-group
-      label.control-label(for= "userID") userID
+      label.control-label(for= "id") id
       .controls
         .input-prepend
           span.add-on
             i.icon-user
-          input#userID.span2(name= "userID", type= "text")
+          input#id.span2(name= "id", type= "text") #{id}
 
     .control-group
       label.control-label(for= "password") password
@@ -20,7 +18,7 @@ block container
         .input-prepend
           span.add-on
             i.icon-lock
-          input#password.span2(name= "password", type= "password")
+          input#password.span2(name= "password", type= "password") #{password}
 
     button.btn.btn-primary(type= "submit") login
 

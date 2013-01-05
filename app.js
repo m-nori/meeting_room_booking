@@ -81,6 +81,7 @@ var routes = {
 };
 var middles = [lib.middles.loginRequired];
 app.get('/', routes.root.index);
+app.get('/login', routes.session.new);
 app.post('/login', routes.session.create);
 app.get('/logout', routes.session.destroy);
 app.get('/booking', middles, routes.booking.index);
