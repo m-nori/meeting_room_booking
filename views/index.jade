@@ -1,9 +1,30 @@
-extends layout
+extends container_layout
 
-block content
-  form(action= "/login", method= "post")
-    | ID:
-    input(type= "text", name= "userID")
-    | PASS:
-    input(type= "text", name= "password")
-    input(type= "submit", value= "login")
+block container
+  | !{errors}
+
+  form.form(action= "/login", method= "post")
+    legend Please login
+
+    .control-group
+      label.control-label(for= "userID") userID
+      .controls
+        .input-prepend
+          span.add-on
+            i.icon-user
+          input#userID.span2(name= "userID", type= "text")
+
+    .control-group
+      label.control-label(for= "password") password
+      .controls
+        .input-prepend
+          span.add-on
+            i.icon-lock
+          input#password.span2(name= "password", type= "password")
+
+    button.btn.btn-primary(type= "submit") login
+
+    div
+      |new user?&nbsp;
+      a(href= "/") Click here to register
+

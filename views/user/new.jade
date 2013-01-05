@@ -1,0 +1,47 @@
+extends container_layout
+
+block container
+  form.form(action= "/user/create", method= "post")
+    legend Input User Info
+
+    .control-group
+      label.control-label(for= "userID") userID
+      .controls
+        .input-prepend
+          span.add-on
+            i.icon-user
+          input#userID.span2(name= "userID", type= "text")
+
+    .control-group
+      label.control-label(for= "password") password
+      .controls
+        .input-prepend
+          span.add-on
+            i.icon-lock
+          input#password.span2(name= "password", type= "password")
+
+    .control-group
+      label.control-label(for= "password_again") password(again)
+      .controls
+        .input-prepend
+          span.add-on
+            i.icon-lock
+          input#password_again.span2(name= "passwordAgain", type= "password")
+
+    .control-group
+      label.control-label(for= "name") name
+      .controls
+        .input-prepend
+          span.add-on
+            i.icon-lock
+          input#name.span4(name= "name", type= "text")
+
+    .control-group
+      label.control-label(for= "group") name
+      .controls
+        .input-prepend
+          span.add-on
+            i.icon-lock
+          input#name.span4(name= "group", type= "text")
+
+    button.btn.btn-primary(type= "submit") login

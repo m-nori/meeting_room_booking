@@ -47,6 +47,8 @@ app.configure(function(){
   // その他拡張
   app.use(flash());
   app.use(expressValidator);
+  // 動的ヘルパ消えてるから自作
+  app.use(lib.helpers);
   // ルーティング
   app.use(app.router);
   app.use(require('less-middleware')({ src: __dirname + '/public' }));

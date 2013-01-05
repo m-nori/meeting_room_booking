@@ -5,8 +5,7 @@ module.exports.root = function(){
       if(req.session.userID) {
         res.redirect("/booking");
       }
-      console.log(req.flash('errors'));
-      res.render('index', { errors: req.flash('errors') });
+      res.render('index');
     }
   };
 };
