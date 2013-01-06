@@ -1,7 +1,9 @@
 
 module.exports = function(model) {
-  var utils = require('../lib').utils;
-  var User = model.User;
+  var lib = require('../lib')
+    , utils = lib.utils
+    , NotFound = lib.NotFound
+    , User = model.User;
 
   return {
     new: function(req, res, next) {
@@ -35,6 +37,7 @@ module.exports = function(model) {
       var id = req.param("id");
       User.get(id, function(err, user) {
         if (err) return next(err);
+        if (!user) return next(new NotFound(req.url));
         res.render('users/edit', user);
       });
     }

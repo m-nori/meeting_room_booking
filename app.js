@@ -13,6 +13,7 @@ var express = require('express')
   , flash = require('connect-flash')
   , resource  =  require('express-resource')
   , lib = require('./lib')
+  , NotFound = lib.NotFound
   ;
 
 var app = express();
@@ -51,6 +52,18 @@ app.configure(function(){
   app.use(app.router);
   app.use(require('less-middleware')({ src: __dirname + '/public' }));
   app.use(express.static(path.join(__dirname, 'public')));
+  // エラーハンドリング
+  app.use(function(err, req, res, next) {
+    if (req.xhr) {
+      res.json(500, {message: err.message, stack: err.stack});
+    }
+    else if (err instanceof NotFound) {
+      res.render('err/404', {status: 404, path: err.path});
+    }
+    else {
+      return next(err);
+    }
+  });
 });
 
 /**

@@ -1,7 +1,8 @@
 
 module.exports = function(redis) {
-  var utils = require('../lib').utils
-    , Validator = require('../lib').Validator;
+  var lib = require('../lib')
+    , utils = lib.utils
+    , Validator = lib.Validator;
 
   var User = require('klass')(function (o) {
     this.id = o.id || "";
@@ -25,11 +26,7 @@ module.exports = function(redis) {
       get: function(id, fn){
         var key = User.key(id);
         redis.get(key, function(err,res) {
-          if (err) return fn(err, null);
-          if (!res) {
-            err = new Error("not found");
-            return fn(err, null);
-          }
+          if (err, !res) return fn(err, null);
           var user = new User(JSON.parse(res));
           fn(err, user);
         });
