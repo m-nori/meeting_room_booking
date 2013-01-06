@@ -1,6 +1,7 @@
 
 module.exports = function(redis) {
-  var lib = require('../lib')
+  var async = require('async')
+    , lib = require('../lib')
     , utils = lib.utils
     , Validator = lib.Validator;
 
@@ -30,6 +31,30 @@ module.exports = function(redis) {
           var user = new User(JSON.parse(res));
           fn(err, user);
         });
+      },
+
+      all: function(fn) {
+        async.waterfall(
+          [function(callback) {
+            redis.keys('uid:*', function(err, keys) {
+              callback(err, keys);
+            });
+          },
+          function(keys, callback) {
+            async.map(keys,
+              function(key, mapCallback) {
+                redis.get(key, function(err, user) {
+                  mapCallback(err, new User(JSON.parse(user)));
+                });
+              },
+              function(err, users) {
+                callback(err, users)
+              });
+          }],
+          function(err, users) {
+            fn(err, users);
+          }
+        );
       }
     })
     .methods({

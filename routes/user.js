@@ -6,6 +6,14 @@ module.exports = function(model) {
     , User = model.User;
 
   return {
+    index: function(req, res, next) {
+      User.all(function(err, users) {
+        if (err) return next(err);
+        console.log(users);
+        res.render('users/index', users);
+      });
+    },
+
     new: function(req, res, next) {
       var user = new User({
           id: utils.getReqVal(req, 'id')

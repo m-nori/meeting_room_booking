@@ -15,6 +15,7 @@
     "validator": "*",
     "klass": "*",
     "express-resource": "*",
+    "async": "*",
     "connect-flash": "*"
   }
 }
