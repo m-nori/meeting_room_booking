@@ -54,15 +54,31 @@ module.exports = function(redis) {
         utils.sanitizeObject(self);
         validationErrors = self.validation();
         if (validationErrors.length !== 0) {
-          return fn(null, validationErrors, null);
+          return fn(null, validationErrors);
         }
         redis.setnx(key, JSON.stringify(self), function(err, result) {
+          if (err) return fn(err, null);
           // キーが存在した場合0が帰ってくる
           if (!result) {
             validationErrors = utils.createMessages("id is already in use");
-            return fn(null, validationErrors, null);
+            return fn(null, validationErrors);
           }
-          fn(null, null, self);
+          fn(null, null);
+        });
+      },
+
+      update: function(fn) {
+        var self = this
+          , key = User.key(self.id)
+          , validationErrors;
+        utils.sanitizeObject(self);
+        validationErrors = self.validation();
+        if (validationErrors.length !== 0) {
+          return fn(null, validationErrors);
+        }
+        redis.set(key, JSON.stringify(self), function(err) {
+          if (err) return fn(err, null);
+          fn(null, null);
         });
       },
 
