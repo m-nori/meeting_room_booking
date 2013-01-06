@@ -21,7 +21,7 @@ module.exports = function(model) {
         else {
           utils.setMessage(req, 'errors', 'login fail');
           utils.setFlash(req, {id: id});
-          res.redirect('/login');
+          res.redirect('/sessions/new');
         }
       });
     },
@@ -29,7 +29,7 @@ module.exports = function(model) {
     destroy: function(req, res, next) {
        req.session.destroy(function(err) {
          if (err) return next(err);
-         res.redirect('/login');
+         res.redirect('/sessions/new');
        });
     }
   };

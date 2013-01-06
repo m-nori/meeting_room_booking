@@ -13,6 +13,7 @@ var express = require('express')
   , flash = require('connect-flash')
   , resource  =  require('express-resource')
   , lib = require('./lib')
+  , utils = require('./lib').utils
   , NotFound = lib.NotFound
   ;
 
@@ -48,6 +49,14 @@ app.configure(function(){
   app.use(flash());
   // 動的ヘルパ消えてるから自作
   app.use(lib.helpers.dynamic);
+  // 認証チェック
+  app.use(function(req, res, next) {
+    var target = /^\/bookings.*$/;
+    if (!req.url.match(target)) return next();
+    if (req.session.user) return next();
+    utils.setMessage(req, 'warnings', 'please login');
+    return res.redirect('/sessions/new');
+  });
   // ルーティング
   app.use(app.router);
   app.use(require('less-middleware')({ src: __dirname + '/public' }));
@@ -83,19 +92,13 @@ app.locals(lib.helpers.statics());
  */
 var client = redis.createClient();
 var model = require('./models/model')(client);
-var routes = {
-    root: require('./routes/root')()
-  , session: require('./routes/session')(model)
-  , user: require('./routes/user')(model)
-  , booking: require('./routes/booking')()
-};
-var middles = [lib.middles.loginRequired];
-app.get('/', routes.root.index);
-app.get('/login', routes.session.new);
-app.post('/login', routes.session.create);
-app.get('/logout', routes.session.destroy);
-app.resource('users', routes.user, { id: 'id' });
-app.resource('bookings', routes.booking, { id: 'id' });
+var sessionRoute  = require('./routes/session')(model);
+app.resource('', require('./routes/root')());
+app.resource('sessions', sessionRoute, { id: 'id' });
+// resourceでの別名の付け方が分からなかった…
+app.get('/logout', sessionRoute.destroy);
+app.resource('users', require('./routes/user')(model), { id: 'id' });
+app.resource('bookings', require('./routes/booking')(), { id: 'id' });
 
 /**
  * Server Start

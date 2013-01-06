@@ -18,7 +18,7 @@ html
               span.icon-bar
             a.brand(href= "/") #{title}
             .nav-collapse.collapse
-              p.navbar-text.pull-right Username
+              p.navbar-text.pull-right !{createUserLink(uid)}
               ul.nav
                 li#nav_home.active
                   a(href= "/") Home

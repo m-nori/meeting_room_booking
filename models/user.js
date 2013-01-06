@@ -36,6 +36,7 @@ module.exports = function(redis) {
       validation: function() {
         var validator = new Validator();
         validator.check(this.id, "id is required").notEmpty();
+        validator.check(this.id, "id must be numeric or alphabetic").isAlphanumeric();
         validator.check(this.password, "password is required").notEmpty();
         validator.check(this.password2, "password2 is required").notEmpty();
         validator.check(this.password2, "password2 is invalid").equals(this.password);
