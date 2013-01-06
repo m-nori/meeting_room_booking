@@ -1,0 +1,40 @@
+.control-group
+  label.control-label(for= "id") id
+  .controls
+    .input-prepend
+      span.add-on
+        i.icon-user
+      input#id.span2(name= "id", type= "text", value= "#{id}")
+
+.control-group
+  label.control-label(for= "password") password
+  .controls
+    .input-prepend
+      span.add-on
+        i.icon-lock
+      input#password.span2(name= "password", type= "password", value= "#{password}")
+
+.control-group
+  label.control-label(for= "password_again") password(again)
+  .controls
+    .input-prepend
+      span.add-on
+        i.icon-lock
+      input#password2.span2(name= "password2", type= "password", value= "#{password2}")
+
+.control-group
+  label.control-label(for= "name") name
+  .controls
+    input#name.span4(name= "name", type= "text", value= "#{name}")
+
+.control-group
+  label.control-label(for= "group") group
+  .controls
+    input#group.span4(name= "group", type= "text", value= "#{group}")
+
+.control-group
+  label.control-label(for= "admin") admin
+  .controls
+    label.checkbox
+      input#admin(name= "admin", type= "checkbox")
+      |give admin rights

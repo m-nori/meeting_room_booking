@@ -1,7 +1,8 @@
 
 module.exports = function(redis) {
-  var utils = require('../lib').utils;
-  var Validator = require('../lib').Validator;
+  var utils = require('../lib').utils
+    , Validator = require('../lib').Validator;
+
   var User = require('klass')(function (o) {
     this.id = o.id || "";
     this.password = o.password || "";
@@ -22,27 +23,49 @@ module.exports = function(redis) {
       },
 
       get: function(id, fn){
-        redis.get(User.key(id), function(err,res) {
-          if (err || !res) {
-            fn(err, null);
-          } else {
-            var user = new User(JSON.parse(res));
-            fn(err, user);
+        var key = User.key(id);
+        redis.get(key, function(err,res) {
+          if (err) return fn(err, null);
+          if (!res) {
+            err = new Error("not found");
+            return fn(err, null);
           }
+          var user = new User(JSON.parse(res));
+          fn(err, user);
         });
       }
     })
     .methods({
       validation: function() {
         var validator = new Validator();
-        validator.check(this.id, "ID is required").notEmpty();
-
+        validator.check(this.id, "id is required").notEmpty();
+        validator.check(this.password, "password is required").notEmpty();
+        validator.check(this.password2, "password2 is required").notEmpty();
+        validator.check(this.password2, "password2 is invalid").equals(this.password);
+        validator.check(this.name, "name is required").notEmpty();
+        validator.check(this.group, "group is required").notEmpty();
+        if (this.admin !== "") {
+          validator.check(this.admin, "admin is invalid").equals("on");
+        }
+        return validator.getErrors();
       },
 
       save: function(fn) {
-        var self = this;
-        redis.setnx(User.key(self.id), JSON.stringify(self), function(err, result) {
-          fn(err, result);
+        var self = this
+          , key = User.key(self.id)
+          , validationErrors;
+        utils.sanitizeObject(self);
+        validationErrors = self.validation();
+        if (validationErrors.length !== 0) {
+          return fn(null, validationErrors, null);
+        }
+        redis.setnx(key, JSON.stringify(self), function(err, result) {
+          // キーが存在した場合0が帰ってくる
+          if (!result) {
+            validationErrors = utils.createMessages("id is already in use");
+            return fn(null, validationErrors, null);
+          }
+          fn(null, null, self);
         });
       },
 

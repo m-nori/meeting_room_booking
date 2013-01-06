@@ -82,7 +82,7 @@ app.get('/login', routes.session.new);
 app.post('/login', routes.session.create);
 app.get('/logout', routes.session.destroy);
 app.resource('users', routes.user, { id: 'id' });
-app.resource('booking', routes.booking, { id: 'id' });
+app.resource('bookings', routes.booking, { id: 'id' });
 
 /**
  * Server Start

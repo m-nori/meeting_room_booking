@@ -1,7 +1,7 @@
 
 module.exports = function(model) {
-  var utils = require('../lib').utils;
-  var User = model.User;
+  var utils = require('../lib').utils
+    , User = model.User;
 
   return {
     new: function(req, res, next) {
@@ -10,16 +10,16 @@ module.exports = function(model) {
     },
 
     create: function(req, res, next) {
-      var id = req.body.id;
-      var password = req.body.password;
+      var id = req.body.id
+        , password = req.body.password;
       User.get(id, function(err, user) {
         if (err) return next(err);
         if (user && user.authenticate(password)) {
-          req.session.user = { id: user.id, name: user.name, admin: user.admin };
-          res.redirect('/booking');
+          req.session.user = utils.createSessionUser(user);
+          res.redirect('/bookings');
         }
         else {
-          utils.setMessage(req, 'errors', 'login fail')
+          utils.setMessage(req, 'errors', 'login fail');
           utils.setFlash(req, {id: id});
           res.redirect('/login');
         }

@@ -1,0 +1,21 @@
+extends ../container_layout
+
+block container
+  form.form-horizontal(action= "/users/#{id}", method= "post")
+    legend Input User Info
+
+    input(type= "hidden", name= "_method", value= "put")
+
+    include _form
+
+    .form-actions
+      button.btn.btn-primary(type= "submit") Submit
+      | &nbsp;
+      button.btn(type= "reset") Cancel
+
+append script
+  script
+    var admin = "#{admin}";
+    if (admin === 'on') {
+      $("#admin").attr("checked", true);
+    }

@@ -5,13 +5,38 @@ module.exports = function(model) {
 
   return {
     new: function(req, res, next) {
-      var user = new User({});
+      var user = new User({
+          id: utils.getReqVal(req, 'id')
+        , name: utils.getReqVal(req, 'name')
+        , group: utils.getReqVal(req, 'group')
+        , admin: utils.getReqVal(req, 'admin')
+      });
       res.render('users/new', user);
     },
 
     create: function(req, res, next) {
       var user = new User(req.body);
-      res.redirect('/');
+      user.save(function(err, validationErrors, registUser) {
+        if (err) return next(err);
+        if (!validationErrors) {
+          // ユーザ登録時はそのままログインさせる
+          req.session.user = utils.createSessionUser(user);
+          res.redirect('/bookings');
+        }
+        else {
+          utils.setMessages(req, 'errors', validationErrors);
+          utils.setFlash(req, user);
+          res.redirect('/users/new');
+        }
+      });
+    },
+
+    edit: function(req, res, next) {
+      var id = req.param("id");
+      User.get(id, function(err, user) {
+        if (err) return next(err);
+        res.render('users/edit', user);
+      });
     }
   };
 };
