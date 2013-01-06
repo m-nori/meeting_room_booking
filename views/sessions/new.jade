@@ -1,5 +1,11 @@
 extends ../container_layout
 
+append css
+  style
+    .login {
+      text-align: right;
+    }
+
 block container
   form.form(action= "/sessions", method= "post")
     legend Please login
@@ -10,7 +16,7 @@ block container
         .input-prepend
           span.add-on
             i.icon-user
-          input#id.span2(name= "id", type= "text", value= "#{id}")
+          input#id.span3(name= "id", type= "text", value= "#{id}")
 
     .control-group
       label.control-label(for= "password") password
@@ -18,11 +24,11 @@ block container
         .input-prepend
           span.add-on
             i.icon-lock
-          input#password.span2(name= "password", type= "password", value= "#{password}")
+          input#password.span3(name= "password", type= "password", value= "#{password}")
 
-    button.btn.btn-primary(type= "submit") login
+    .login.span3
+      button.btn.btn-primary(type= "submit") login
 
-    div
-      |new user?&nbsp;
-      a(href= "/users/new") Click here to register
-
+      div
+        |new user?&nbsp;
+        a(href= "/users/new") Click here to register

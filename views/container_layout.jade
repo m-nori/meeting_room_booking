@@ -1,5 +1,15 @@
 extends layout
 
+append css
+  style
+    .container {
+      width: auto;
+      max-width: 780px;
+    }
+    .form-horizontal .form-actions {
+      padding-left: 300px;
+    }
+
 block content
   .container
     div
@@ -8,7 +18,3 @@ block content
       | !{createSuccessMessage(success)}
 
       block container
-
-    hr
-    footer
-      p &copy; 2013

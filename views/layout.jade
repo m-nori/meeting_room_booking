@@ -27,7 +27,12 @@ html
                     b.caret
                   |!{createSettingLinks(uid, adminUser)}
 
-    block content
+    div#wrap
+      block content
+
+    block footer
+      div#footer
+        p#footer_content Copyright &copy; 2013 m_nori
 
     block script
       script(src= "/js/jquery-1.8.3.min.js", type= "text/javascript")
