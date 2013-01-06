@@ -13,8 +13,8 @@
     "redis": "*",
     "socket.io": "*",
     "validator": "*",
-    "express-validator": "*",
     "klass": "*",
+    "express-resource": "*",
     "connect-flash": "*"
   }
 }

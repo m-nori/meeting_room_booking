@@ -1,24 +1,17 @@
 
 module.exports = function(model) {
   var utils = require('../lib').utils;
-
-  var createForm = function(req) {
-    return {
-        id: req.body.id || ""
-      , password: req.body.password || ""
-      , name: req.body.password || ""
-      , group: req.body.password || ""
-      , admin: req.body.password || false
-    }
-  }
+  var User = model.User;
 
   return {
     new: function(req, res, next) {
-      var form = createForm(req);
-      res.render('users/new', form);
+      var user = new User({});
+      res.render('users/new', user);
     },
 
     create: function(req, res, next) {
+      var user = new User(req.body);
+      res.redirect('/');
     }
   };
 };

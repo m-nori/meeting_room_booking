@@ -9,9 +9,9 @@ var express = require('express')
   , connect = require("express/node_modules/connect")
   , RedisStore = require('connect-redis')(express)
   , Session = express.session.Session
-  , expressValidator = require("express-validator")
   , redis = require('redis')
   , flash = require('connect-flash')
+  , resource  =  require('express-resource')
   , lib = require('./lib')
   ;
 
@@ -44,9 +44,7 @@ app.configure(function(){
       httpOnly: false
     }
   }));
-  // その他拡張
   app.use(flash());
-  app.use(expressValidator);
   // 動的ヘルパ消えてるから自作
   app.use(lib.helpers.dynamic);
   // ルーティング
@@ -83,9 +81,8 @@ app.get('/', routes.root.index);
 app.get('/login', routes.session.new);
 app.post('/login', routes.session.create);
 app.get('/logout', routes.session.destroy);
-app.get('/users/new', routes.user.new);
-app.post('/users', routes.user.create);
-app.get('/booking', middles, routes.booking.index);
+app.resource('users', routes.user, { id: 'id' });
+app.resource('booking', routes.booking, { id: 'id' });
 
 /**
  * Server Start

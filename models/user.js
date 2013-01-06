@@ -1,12 +1,14 @@
 
 module.exports = function(redis) {
+  var utils = require('../lib').utils;
+  var Validator = require('../lib').Validator;
   var User = require('klass')(function (o) {
     this.id = o.id || "";
     this.password = o.password || "";
     this.password2 = o.password2 || "";
     this.name = o.name || "";
     this.group = o.group || "";
-    this.admin = o.admin || false;
+    this.admin = o.admin || "";
   })
     .statics({
       key: function(id) {
@@ -31,6 +33,12 @@ module.exports = function(redis) {
       }
     })
     .methods({
+      validation: function() {
+        var validator = new Validator();
+        validator.check(this.id, "ID is required").notEmpty();
+
+      },
+
       save: function(fn) {
         var self = this;
         redis.setnx(User.key(self.id), JSON.stringify(self), function(err, result) {

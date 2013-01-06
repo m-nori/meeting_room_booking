@@ -15,8 +15,7 @@ module.exports = function(model) {
       User.get(id, function(err, user) {
         if (err) return next(err);
         if (user && user.authenticate(password)) {
-          req.session.uid = user.id;
-          req.session.name = user.name;
+          req.session.user = { id: user.id, name: user.name, admin: user.admin };
           res.redirect('/booking');
         }
         else {

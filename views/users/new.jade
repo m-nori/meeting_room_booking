@@ -1,16 +1,16 @@
 extends ../container_layout
 
 block container
-  form.form-horizontal(action= "/users/create", method= "post")
+  form.form-horizontal(action= "/users", method= "post")
     legend Input User Info
 
     .control-group
-      label.control-label(for= "userID") userID
+      label.control-label(for= "id") id
       .controls
         .input-prepend
           span.add-on
             i.icon-user
-          input#userID.span2(name= "userID", type= "text")
+          input#id.span2(name= "id", type= "text", value= "#{id}")
 
     .control-group
       label.control-label(for= "password") password
@@ -18,7 +18,7 @@ block container
         .input-prepend
           span.add-on
             i.icon-lock
-          input#password.span2(name= "password", type= "password")
+          input#password.span2(name= "password", type= "password", value= "#{password}")
 
     .control-group
       label.control-label(for= "password_again") password(again)
@@ -26,17 +26,17 @@ block container
         .input-prepend
           span.add-on
             i.icon-lock
-          input#password2.span2(name= "password2", type= "password")
+          input#password2.span2(name= "password2", type= "password", value= "#{password2}")
 
     .control-group
       label.control-label(for= "name") name
       .controls
-        input#name.span4(name= "name", type= "text")
+        input#name.span4(name= "name", type= "text", value= "#{name}")
 
     .control-group
       label.control-label(for= "group") group
       .controls
-        input#group.span4(name= "group", type= "text")
+        input#group.span4(name= "group", type= "text", value= "#{group}")
 
     .control-group
       label.control-label(for= "admin") admin
