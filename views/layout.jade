@@ -21,13 +21,11 @@ html
               p.navbar-text.pull-right !{createUserLink(uid)}
               ul.nav
                 li#nav_home.active
-                  a(href= "/") Home
+                  a(href= "/bookings") Home
                 li#nav_settings.dropdown
                   a.dropdown-toggle(href= "#", role= "button", data-toggle= "dropdown") Settings
                     b.caret
-                  ul.dropdown-menu(role= "menu")
-                    li
-                      a(href= "/") Meeting Room
+                  |!{createSettingLinks(uid, adminUser)}
 
     block content
 
