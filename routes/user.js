@@ -18,7 +18,7 @@ module.exports = function(model) {
 
     create: function(req, res, next) {
       var user = new User(req.body);
-      user.save(function(err, validationErrors, registUser) {
+      user.create(function(err, validationErrors, registUser) {
         if (err) return next(err);
         if (!validationErrors) {
           // ユーザ登録時はそのままログインさせる
@@ -35,7 +35,7 @@ module.exports = function(model) {
 
     edit: function(req, res, next) {
       var id = req.param("id");
-      User.get(id, function(err, user) {
+      User.find(id, function(err, user) {
         if (err) return next(err);
         if (!user) return next(new NotFound(req.url));
         res.render('users/edit', user);

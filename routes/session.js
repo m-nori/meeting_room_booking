@@ -12,7 +12,7 @@ module.exports = function(model) {
     create: function(req, res, next) {
       var id = req.body.id
         , password = req.body.password;
-      User.get(id, function(err, user) {
+      User.find(id, function(err, user) {
         if (err) return next(err);
         if (user && user.authenticate(password)) {
           req.session.user = utils.createSessionUser(user);

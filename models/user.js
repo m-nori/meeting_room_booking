@@ -17,13 +17,13 @@ module.exports = function(redis) {
         return 'uid:' + id;
       },
 
-      del: function(id, fn){
+      destroy: function(id, fn){
         redis.del(User.key(id), function(err){
           fn(err);
         });
       },
 
-      get: function(id, fn){
+      find: function(id, fn){
         var key = User.key(id);
         redis.get(key, function(err,res) {
           if (err, !res) return fn(err, null);
@@ -47,7 +47,7 @@ module.exports = function(redis) {
         return validator.getErrors();
       },
 
-      save: function(fn) {
+      create: function(fn) {
         var self = this
           , key = User.key(self.id)
           , validationErrors;
