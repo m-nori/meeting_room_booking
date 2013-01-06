@@ -10,7 +10,7 @@ module.exports = function(model) {
       User.all(function(err, users) {
         if (err) return next(err);
         console.log(users);
-        res.render('users/index', users);
+        res.render('users/index', {users: users});
       });
     },
 

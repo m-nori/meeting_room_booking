@@ -1,3 +1,18 @@
 extends ../container_layout
 
 block container
+  table.table.table-striped
+    thead
+      tr
+        th #
+        th id
+        th name
+        th group
+    tbody
+      each user, i in users
+        tr
+          td= i
+          td
+            a(href= "/users/#{user.id}/edit") #{user.id}
+          td= user.name
+          td= user.group
