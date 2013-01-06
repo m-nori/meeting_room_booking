@@ -5,7 +5,7 @@ module.exports = function(){
       if(req.session.userID) {
         res.redirect("/booking");
       }
-      res.redirect("/sessions/new");
+      res.render("index");
     }
   };
 };
