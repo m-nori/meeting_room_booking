@@ -9,13 +9,15 @@ var express = require('express')
   , connect = require("express/node_modules/connect")
   , RedisStore = require('connect-redis')(express)
   , Session = express.session.Session
-  , redis = require('redis')
-  , mongoose = require('mongoose')
   , flash = require('connect-flash')
   , resource  =  require('express-resource')
   , lib = require('./lib')
   , utils = require('./lib').utils
   , NotFound = lib.NotFound
+  , mongoose = require('mongoose')
+  , redis = require('redis')
+  , redisClient = redis.createClient()
+  , model = require('./models/model')(mongoose, redisClient)
   ;
 
 var app = express();
@@ -52,9 +54,24 @@ app.configure(function(){
   app.use(lib.helpers.dynamic);
   // 認証チェック
   app.use(function(req, res, next) {
-    var target = /^\/bookings.*$/;
-    if (!req.url.match(target)) return next();
+    var skipList = [
+        '/js/'
+      , '/css/'
+      , '/img/'
+    ];
+    var whiteList = {
+        '/': 'GET'
+      , '/sessions': 'POST'
+      , '/sessions/new': 'GET'
+      , '/sessions/destroy': 'DELETE'
+      , '/users/new': 'GET'
+      , '/users': 'POST'
+    };
+    for(var i = 0; i < skipList.length; i++) {
+      if (req.url.match(skipList[i])) return next();
+    }
     if (req.session.user) return next();
+    if (whiteList[req.url] === req.method) return next();
     utils.setMessage(req, 'warnings', 'please login');
     return res.redirect('/sessions/new');
   });
@@ -92,11 +109,8 @@ app.locals(lib.helpers.statics());
  * Routes Setting
  */
 mongoose.connect('mongodb://localhost/test');
-var redisClient = redis.createClient();
-var model = require('./models/model')(mongoose, redisClient);
-var sessionRoute  = require('./routes/session')(model);
 app.resource('', require('./routes/root')());
-app.resource('sessions', sessionRoute, { id: 'id' });
+app.resource('sessions', require('./routes/session')(model), { id: 'id' });
 app.resource('users', require('./routes/user')(model), { id: 'id' });
 app.resource('bookings', require('./routes/booking')(), { id: 'id' });
 

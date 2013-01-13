@@ -83,6 +83,10 @@ module.exports = function(model) {
           res.redirect('/users/' + id + '/edit');
         });
       });
+    },
+
+    destroy: function(req, res, next) {
+      var id = req.param("id");
     }
   };
 };
