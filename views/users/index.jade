@@ -8,6 +8,7 @@ block container
         th id
         th name
         th group
+        th action
     tbody
       each user, i in users
         tr
@@ -16,3 +17,8 @@ block container
             a(href= "/users/#{user.id}/edit") #{user.email}
           td= user.name
           td= user.group
+          td
+            - if (uid !== user.id)
+              a.btn(href= "/users/#{user.id}", data-method= "delete") delete
+            - else
+              a.btn(disabled= "disabled") delete

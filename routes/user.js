@@ -79,7 +79,6 @@ module.exports = function(model) {
             }
           }
           utils.setMessage(req, 'success', "user info update!");
-          req.session.user = utils.createSessionUser(user);
           res.redirect('/users/' + id + '/edit');
         });
       });
@@ -87,6 +86,11 @@ module.exports = function(model) {
 
     destroy: function(req, res, next) {
       var id = req.param("id");
+      User.findByIdAndRemove(id, function(err, user) {
+        if (err) return next(err);
+        if (!user) return next(new NotFound(req.url));
+        res.redirect('/users');
+      })
     }
   };
 };
