@@ -10,6 +10,7 @@ var express = require('express')
   , RedisStore = require('connect-redis')(express)
   , Session = express.session.Session
   , redis = require('redis')
+  , mongoose = require('mongoose')
   , flash = require('connect-flash')
   , resource  =  require('express-resource')
   , lib = require('./lib')
@@ -90,8 +91,9 @@ app.locals(lib.helpers.statics());
 /**
  * Routes Setting
  */
-var client = redis.createClient();
-var model = require('./models/model')(client);
+mongoose.connect('mongodb://localhost/test');
+var redisClient = redis.createClient();
+var model = require('./models/model')(mongoose, redisClient);
 var sessionRoute  = require('./routes/session')(model);
 app.resource('', require('./routes/root')());
 app.resource('sessions', sessionRoute, { id: 'id' });

@@ -1,7 +1,7 @@
 
-module.exports = function(redis) {
+module.exports = function(mongoose, redisClient) {
   return {
-    User: require('./user')(redis)
+    User: require('./user')(mongoose)
   }
 }
 

@@ -5,14 +5,15 @@ module.exports = function(model) {
 
   return {
     new: function(req, res, next) {
-      var user = new User({id: utils.getReqVal(req, 'id')});
+      var user = new User({email: utils.getReqVal(req, 'email')});
+      console.log(user);
       res.render('sessions/new', user);
     },
 
     create: function(req, res, next) {
-      var id = req.body.id
+      var email = req.body.email
         , password = req.body.password;
-      User.find(id, function(err, user) {
+      User.findOne({email: email}, function(err, user) {
         if (err) return next(err);
         if (user && user.authenticate(password)) {
           req.session.user = utils.createSessionUser(user);
@@ -20,8 +21,8 @@ module.exports = function(model) {
         }
         else {
           utils.setMessage(req, 'errors', 'login fail');
-          utils.setFlash(req, {id: id});
-          res.redirect('/sessions/new');
+          utils.setFlash(req, {email: email});
+          res.redirect('back');
         }
       });
     },
