@@ -30,7 +30,7 @@ module.exports = function(model) {
     destroy: function(req, res, next) {
        req.session.destroy(function(err) {
          if (err) return next(err);
-         res.redirect('/sessions/new');
+         res.redirect('/');
        });
     }
   };

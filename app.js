@@ -97,8 +97,6 @@ var model = require('./models/model')(mongoose, redisClient);
 var sessionRoute  = require('./routes/session')(model);
 app.resource('', require('./routes/root')());
 app.resource('sessions', sessionRoute, { id: 'id' });
-// resourceでの別名の付け方が分からなかった…
-app.get('/logout', sessionRoute.destroy);
 app.resource('users', require('./routes/user')(model), { id: 'id' });
 app.resource('bookings', require('./routes/booking')(), { id: 'id' });
 
