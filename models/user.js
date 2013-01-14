@@ -1,6 +1,7 @@
 
 module.exports = function(mongoose) {
   var lib = require('../lib')
+    , utils =  lib.utils
     , Validator = lib.Validator
     , ValidationError = lib.ValidationError
     ;
@@ -23,6 +24,7 @@ module.exports = function(mongoose) {
   // validator
   userSchema.pre('save', function(next){
     var validator = new Validator();
+    utils.sanitizeObject(this);
     validator.check(this.email, "email is invalid").isEmail();
     validator.check(this.password, "password is required").notEmpty();
     validator.check(this.password2, "password2 is required").notEmpty();
