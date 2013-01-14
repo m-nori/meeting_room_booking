@@ -17,6 +17,8 @@ module.exports = function(model) {
     new: function(req, res, next) {
       var user = new User({
           email: utils.getReqVal(req, 'email')
+        , password: ""
+        , password2: ""
         , name: utils.getReqVal(req, 'name')
         , group: utils.getReqVal(req, 'group')
         , admin: utils.getReqVal(req, 'admin')
@@ -66,6 +68,7 @@ module.exports = function(model) {
         user.name = req.body.name;
         user.group = req.body.group;
         user.admin= req.body.admin;
+        user.updated_at = Date.now();
         user.update();
         user.save(function(err) {
           if (err) {

@@ -3,7 +3,7 @@
   .controls
     .input-prepend
       span.add-on
-        i.icon-user
+        i.icon-envelope
       input#email.span3(name= "email", type= "text", value= "#{email}")
 
 .control-group
@@ -12,7 +12,7 @@
     .input-prepend
       span.add-on
         i.icon-lock
-      input#password.span3(name= "password", type= "password")
+      input#password.span3(name= "password", type= "password", value= "#{password}")
 
 .control-group
   label.control-label(for= "password_again") password(again)
@@ -20,7 +20,7 @@
     .input-prepend
       span.add-on
         i.icon-lock
-      input#password2.span3(name= "password2", type= "password")
+      input#password2.span3(name= "password2", type= "password", value= "#{password2}")
 
 .control-group
   label.control-label(for= "name") name

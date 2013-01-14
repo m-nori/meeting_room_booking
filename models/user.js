@@ -7,13 +7,14 @@ module.exports = function(mongoose) {
     ;
 
   var userSchema =  mongoose.Schema({
-    email: { type: String, index: {unique: true} },
-    password: { type: String },
-    password2: { type: String },
-    name: { type: String },
-    group: { type: String },
-    admin: { type: String, default: "" },
-    created_at: {type: Date, default: Date.now()}
+      email: { type: String, index: {unique: true} }
+    , password: { type: String }
+    , password2: { type: String }
+    , name: { type: String }
+    , group: { type: String }
+    , admin: { type: String, default: "" }
+    , created_at: {type: Date, default: Date.now()}
+    , updated_at: {type: Date, default: Date.now()}
   });
 
   // id
