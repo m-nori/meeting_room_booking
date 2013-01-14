@@ -18,14 +18,27 @@ html
               span.icon-bar
             a.brand(href= "/") #{title}
             .nav-collapse.collapse
-              p.navbar-text.pull-right !{createUserLink(uid)}
+              p.navbar-text.pull-right
+                - if (uid !== "")
+                  a.navbar-link(href= "/sessions/#{uid}", data-method= "delete") logout
+                -else
+                  a.navbar-link(href= "/sessions/new") login
               ul.nav
                 li#nav_home.active
                   a(href= "/bookings") Home
                 li#nav_settings.dropdown
                   a.dropdown-toggle(href= "#", role= "button", data-toggle= "dropdown") Settings
                     b.caret
-                  |!{createSettingLinks(uid, adminUser)}
+                  - if (uid !== "")
+                    ul.dropdown-menu(role= "menu")
+                      li
+                        a(href= "/users/#{uid}/edit") Edit My Profile
+                      - if (adminUser !== "")
+                        li.divider
+                        li
+                          a(href= "/users") Users
+                        li
+                          a(href= "/rooms") Meeting Rooms
 
     div#wrap
       block content

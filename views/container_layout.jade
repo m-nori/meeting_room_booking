@@ -14,8 +14,8 @@ append css
 block content
   .container
     div
-      | !{createErrorMessage(error)}
-      | !{createWarningMessage(warning)}
-      | !{createSuccessMessage(success)}
+      | !{createMessage(error, 'alert-error')}
+      | !{createMessage(warning)}
+      | !{createMessage(success, 'alert-success')}
 
       block container

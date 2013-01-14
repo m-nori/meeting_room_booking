@@ -103,7 +103,9 @@ app.configure('development', function(){
 /**
  * Helper Setting
  */
-app.locals(lib.helpers.statics());
+app.locals(lib.helpers.statics({
+    title: "Meeting Room Booking"
+}));
 
 /**
  * Routes Setting
