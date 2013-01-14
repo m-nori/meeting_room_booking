@@ -1,0 +1,12 @@
+extends ../container_layout
+
+block container
+  form.form-horizontal(action= "/rooms", method= "post")
+    legend Input Room Info
+
+    include _form
+
+    .form-actions
+      button.btn.btn-primary(type= "submit") Submit
+      | &nbsp;
+      button.btn(type= "reset") Cancel

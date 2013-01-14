@@ -1,0 +1,25 @@
+.control-group
+  label.control-label(for= "name") name
+  .controls
+    .input-prepend
+      span.add-on
+        i.icon-th-large
+      input#name.span3(name= "name", type= "text", value= "#{name}")
+
+.control-group
+  label.control-label(for= "place") place
+  .controls
+    .input-prepend
+      span.add-on
+        i.icon-map-marker
+      input#place.span3(name= "place", type= "text", value= "#{place}")
+
+.control-group
+  label.control-label(for= "maximum") maximum
+  .controls
+    input#maximum.span1(name= "maximum", type= "number", value= "#{maximum}")
+
+.control-group
+  label.control-label(for= "order") order
+  .controls
+    input#order.span1(name= "order", type= "number", value= "#{order}")

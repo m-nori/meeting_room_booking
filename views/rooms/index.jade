@@ -1,0 +1,25 @@
+extends ../container_layout
+
+block container
+  h2 Meeting Rooms
+  a.btn.btn-primary(href= "/rooms/new") Create new Meeting Room
+  table.table.table-striped
+    thead
+      tr
+        th #
+        th name
+        th place
+        th maximum
+        th order
+        th action
+    tbody
+      each room, i in rooms
+        tr
+          td= i
+          td= room.name
+          td= room.place
+          td= room.maximum
+          td= room.order
+          td
+            a.btn.btn-small.btn-primary.btn-width(href= "/rooms/#{room.id}/edit") edit
+            a.btn.btn-small.btn-danger.btn-width(href= "/rooms/#{room.id}", data-method= "delete") delete

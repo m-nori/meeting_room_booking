@@ -114,6 +114,7 @@ mongoose.connect('mongodb://localhost/test');
 app.resource('', require('./routes/root')());
 app.resource('sessions', require('./routes/session')(model), { id: 'id' });
 app.resource('users', require('./routes/user')(model), { id: 'id' });
+app.resource('rooms', require('./routes/room')(model), { id: 'id' });
 app.resource('bookings', require('./routes/booking')(), { id: 'id' });
 
 /**
