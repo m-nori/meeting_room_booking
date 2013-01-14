@@ -1,5 +1,30 @@
 /* Custom calendar elements */
 
+*,
+*:after,
+*:before {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+/* Clearfix hack by Nicolas Gallagher: http://nicolasgallagher.com/micro-clearfix-hack/ */
+.clearfix:before,
+.clearfix:after {
+    content: " "; [> 1 <]
+    display: table; [> 2 <]
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+.clearfix {
+    *zoom: 1;
+}
+
 .custom-calendar-wrap {
   margin: 10px auto;
   position: relative;
@@ -84,7 +109,7 @@
 }
 
 .custom-header nav span:before {
-  font-family: 'fontawesome-selected';
+  /* font-family: 'fontawesome-selected'; */
   color: #ef4f69;
   position: absolute;
   text-align: center;
