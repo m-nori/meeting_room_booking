@@ -20,6 +20,6 @@ block container
           td
             a.btn.btn-small.btn-primary.btn-width(href= "/users/#{user.id}/edit") edit
             - if (uid !== user.id)
-              a.btn.btn-small.btn-danger.btn-width(href= "/users/#{user.id}", data-method= "delete") delete
+              a.btn.btn-small.btn-danger.btn-width(href= "/users/#{user.id}", data-method= "delete", data-confirm= "Are you sure?") delete
             - else
               a.btn.btn-small.btn-danger.btn-width(disabled= "disabled") delete

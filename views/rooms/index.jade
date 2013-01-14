@@ -22,4 +22,4 @@ block container
           td= room.order
           td
             a.btn.btn-small.btn-primary.btn-width(href= "/rooms/#{room.id}/edit") edit
-            a.btn.btn-small.btn-danger.btn-width(href= "/rooms/#{room.id}", data-method= "delete") delete
+            a.btn.btn-small.btn-danger.btn-width(href= "/rooms/#{room.id}", data-method= "delete", data-confirm= "Are you sure?") delete

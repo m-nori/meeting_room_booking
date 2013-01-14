@@ -17,9 +17,16 @@
     form.submit();
   }
 
+  // confirm daialog
+  function allowAction(element) {
+    var message = element.data('confirm');
+    return !message || confirm(message);
+  }
+
   // data-method init
-  $(document).on('click', 'a[data-method]', function(e) {
+  $(document).on('click', 'a[data-confirm], a[data-method]', function(e) {
     var link = $(this);
+    if (!allowAction(link)) return false;
     handleMethod(link);
     return false;
   })
