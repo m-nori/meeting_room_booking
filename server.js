@@ -58,6 +58,7 @@ app.configure(function(){
         '/js/'
       , '/css/'
       , '/img/'
+      , '/font/'
     ];
     var whiteList = {
         '/': 'GET'

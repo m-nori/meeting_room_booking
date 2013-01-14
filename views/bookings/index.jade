@@ -1,4 +1,33 @@
-extends ../container_layout
+extends ../layout
 
-block container
-  h1=  userID
+append css
+  link(rel='stylesheet', href='/css/booking.css')
+  link(rel='stylesheet', href='/css/calendar.css')
+  link(rel='stylesheet', href='/css/calendar_custom.css')
+  script(src= "/js/modernizr.custom.63321.js", type= "text/javascript")
+
+block content
+  #content.container-fluid
+    .row-fluid
+      .span3
+        .well.sidebar-nav
+          ul.nav.nav-list
+            li.nav-header calendar
+              .custom-calendar-wrap
+                #custom-inner.custom-inner
+                  .custom-header.clearfix
+                    nav
+                      span#custom-prev.custom-prev
+                      span#custom-next.custom-next
+                    h5#custom-year.custom-year
+                    h4#custom-month.custom-month
+                  #calendar.fc-calendar-container
+            li.nav-header filter
+      .span9
+        .hero-unit
+          h1 test
+
+append script
+  script(src= "/js/jquery.calendario.js", type= "text/javascript")
+  script(src= "/js/data.js", type= "text/javascript")
+  script(src= "/js/booking.js", type= "text/javascript")
