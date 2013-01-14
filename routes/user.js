@@ -43,7 +43,7 @@ module.exports = function(model) {
           }
         }
         req.session.user = utils.createSessionUser(user);
-        res.redirect('/bookings');
+        res.redirect('bookings');
       });
     },
 
@@ -79,7 +79,7 @@ module.exports = function(model) {
             }
           }
           utils.setMessage(req, 'success', "user info update!");
-          res.redirect('/users/' + id + '/edit');
+          res.redirect('users/' + id + '/edit');
         });
       });
     },
@@ -89,7 +89,7 @@ module.exports = function(model) {
       User.findByIdAndRemove(id, function(err, user) {
         if (err) return next(err);
         if (!user) return next(new NotFound(req.url));
-        res.redirect('/users');
+        res.redirect('users');
       })
     }
   };
