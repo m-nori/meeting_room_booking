@@ -4,27 +4,276 @@ append css
   link(rel='stylesheet', href='/css/booking.css')
   link(rel='stylesheet', href='/css/calendar.css')
   link(rel='stylesheet', href='/css/calendar_custom.css')
+  link(rel='stylesheet', href='/css/fullcalendar.css')
 
 block content
   #content.container-fluid
     .row-fluid
-      .span3
-        .well.sidebar-nav
-          ul.nav.nav-list
-            li.nav-header calendar
-              .custom-calendar-wrap
-                #custom-inner.custom-inner
-                  .custom-header.clearfix
-                    nav
-                      span#custom-prev.custom-prev
-                      span#custom-next.custom-next
-                    h5#custom-year.custom-year
-                    h4#custom-month.custom-month
-                  #calendar.fc-calendar-container
-            li.nav-header filter
-      .span9
-        .hero-unit
-          h1 test
+      .span2
+        h3#search-booking-title Search Booking
+        .custom-calendar-wrap
+          #custom-inner.custom-inner
+            .custom-header.clearfix
+              nav
+                span#custom-prev.custom-prev
+                span#custom-next.custom-next
+              h4.custom-year
+                span#custom-year
+                span &nbsp;/&nbsp;
+                span#custom-month
+            #calendar.fc-calendar-container
+      .span10
+        a#new.btn.btn-primary(style= "margin-right: 20px;") New Booking
+        a#back.btn &lt;
+        a#next.btn &gt;
+        hr
+        .fc-view.fc-view-agendaWeek.fc-agenda(style= "position: relative;", unselectable= "on")
+          table.fc-agenda-days.fc-border-separate(style='width: 100%; table-layout: fixed;', cellspacing='0')
+            thead
+              tr.fc-first.fc-last
+                th.fc-agenda-axis.fc-widget-header.fc-first(style='width: 50px;')  
+                th.fc-widget-name.fc-widget-header Sun 1/13
+                th.fc-widget-name.fc-widget-header Mon 1/14
+                th.fc-widget-name.fc-widget-header Tue 1/15
+                th.fc-widget-name.fc-widget-header Wed 1/16
+                th.fc-widget-name.fc-widget-header Thu 1/17
+                th.fc-widget-name.fc-widget-header Fri 1/18
+                th.fc-widget-name.fc-widget-header.fc-last Sat 1/19
+                th.fc-agenda-gutter.fc-widget-header.fc-last(style='display: none;')  
+            tbody
+              tr.fc-first.fc-last
+                th.fc-agenda-axis.fc-widget-header.fc-first  
+                td.fc-sun.fc-col0.fc-widget-content
+                  div(style='height: 700px;')
+                    .fc-day-content
+                      div(style='position:relative')  
+                td.fc-mon.fc-col1.fc-widget-content
+                  div
+                    .fc-day-content
+                      div(style='position:relative')  
+                td.fc-tue.fc-col2.fc-widget-content
+                  div
+                    .fc-day-content
+                      div(style='position:relative')  
+                td.fc-wed.fc-col3.fc-widget-content
+                  div
+                    .fc-day-content
+                      div(style='position:relative')  
+                td.fc-thu.fc-col4.fc-widget-content
+                  div
+                    .fc-day-content
+                      div(style='position:relative')  
+                td.fc-fri.fc-col5.fc-widget-content
+                  div
+                    .fc-day-content
+                      div(style='position:relative')  
+                td.fc-sat.fc-col6.fc-widget-content.fc-last
+                  div
+                    .fc-day-content
+                      div(style='position:relative')  
+                td.fc-agenda-gutter.fc-widget-content.fc-last(style='display: none;')  
+          div(style= "position: absolute; z-index: 2; left: 0px; width: 100%; top: 17px;")
+            .fc-agenda-divider.fc-widget-header
+              .fc-agenda-divider-inner
+            div(style='position: absolute; width: 100%; overflow-x: hidden; overflow-y: auto; height: 700px;')
+              div(style='position:relative;width:100%;overflow:hidden')
+                table.fc-agenda-slots(cellspacing= "0", style= "width:100%")
+                  tbody
+                    tr.fc-slot0
+                      th.fc-agenda-axis.fc-widget-header(style= "width: 50px;") 00:00
+                      td.fc-widget-content
+                        div(style= "position:relative")  
+                    tr.fc-slot1.fc-minor
+                      th.fc-agenda-axis.fc-widget-header  
+                      td.fc-widget-content
+                        div(style= "position:relative")
+                    tr.fc-slot2
+                      th.fc-agenda-axis.fc-widget-header 01:00
+                      td.fc-widget-content
+                        div(style= "position:relative")  
+                    tr.fc-slot3.fc-minor
+                      th.fc-agenda-axis.fc-widget-header  
+                      td.fc-widget-content
+                        div(style= "position:relative")  
+                    tr.fc-slot4
+                      th.fc-agenda-axis.fc-widget-header 02:00
+                      td.fc-widget-content
+                        div(style= "position:relative")  
+                    tr.fc-slot5.fc-minor
+                      th.fc-agenda-axis.fc-widget-header  
+                      td.fc-widget-content
+                        div(style= "position:relative")  
+                    tr.fc-slot6
+                      th.fc-agenda-axis.fc-widget-header 03:00
+                      td.fc-widget-content
+                        div(style= "position:relative")  
+                    tr.fc-slot7.fc-minor
+                      th.fc-agenda-axis.fc-widget-header  
+                      td.fc-widget-content
+                        div(style= "position:relative")  
+                    tr.fc-slot8
+                      th.fc-agenda-axis.fc-widget-header 04:00
+                      td.fc-widget-content
+                        div(style= "position:relative")  
+                    tr.fc-slot9.fc-minor
+                      th.fc-agenda-axis.fc-widget-header  
+                      td.fc-widget-content
+                        div(style= "position:relative")  
+                    tr.fc-slot10
+                      th.fc-agenda-axis.fc-widget-header 05:00
+                      td.fc-widget-content
+                        div(style= "position:relative")  
+                    tr.fc-slot11.fc-minor
+                      th.fc-agenda-axis.fc-widget-header  
+                      td.fc-widget-content
+                        div(style= "position:relative")  
+                    tr.fc-slot12
+                      th.fc-agenda-axis.fc-widget-header 06:00
+                      td.fc-widget-content
+                        div(style= "position:relative")  
+                    tr.fc-slot13.fc-minor
+                      th.fc-agenda-axis.fc-widget-header  
+                      td.fc-widget-content
+                        div(style= "position:relative")  
+                    tr.fc-slot14
+                      th.fc-agenda-axis.fc-widget-header 07:00
+                      td.fc-widget-content
+                        div(style= "position:relative")  
+                    tr.fc-slot15.fc-minor
+                      th.fc-agenda-axis.fc-widget-header  
+                      td.fc-widget-content
+                        div(style= "position:relative")  
+                    tr.fc-slot16
+                      th.fc-agenda-axis.fc-widget-header 08:00
+                      td.fc-widget-content
+                        div(style= "position:relative")  
+                    tr.fc-slot17.fc-minor
+                      th.fc-agenda-axis.fc-widget-header  
+                      td.fc-widget-content
+                        div(style= "position:relative")  
+                    tr.fc-slot18
+                      th.fc-agenda-axis.fc-widget-header 09:00
+                      td.fc-widget-content
+                        div(style= "position:relative")  
+                    tr.fc-slot19.fc-minor
+                      th.fc-agenda-axis.fc-widget-header  
+                      td.fc-widget-content
+                        div(style= "position:relative")  
+                    tr.fc-slot20
+                      th.fc-agenda-axis.fc-widget-header 10:00
+                      td.fc-widget-content
+                        div(style= "position:relative")  
+                    tr.fc-slot21.fc-minor
+                      th.fc-agenda-axis.fc-widget-header  
+                      td.fc-widget-content
+                        div(style= "position:relative")  
+                    tr.fc-slot22
+                      th.fc-agenda-axis.fc-widget-header 11:00
+                      td.fc-widget-content
+                        div(style= "position:relative")  
+                    tr.fc-slot23.fc-minor
+                      th.fc-agenda-axis.fc-widget-header  
+                      td.fc-widget-content
+                        div(style= "position:relative")  
+                    tr.fc-slot24
+                      th.fc-agenda-axis.fc-widget-header 12:00
+                      td.fc-widget-content
+                        div(style= "position:relative")  
+                    tr.fc-slot25.fc-minor
+                      th.fc-agenda-axis.fc-widget-header  
+                      td.fc-widget-content
+                        div(style= "position:relative")  
+                    tr.fc-slot26
+                      th.fc-agenda-axis.fc-widget-header 13:00
+                      td.fc-widget-content
+                        div(style= "position:relative")  
+                    tr.fc-slot27.fc-minor
+                      th.fc-agenda-axis.fc-widget-header  
+                      td.fc-widget-content
+                        div(style= "position:relative")  
+                    tr.fc-slot28
+                      th.fc-agenda-axis.fc-widget-header 14:00
+                      td.fc-widget-content
+                        div(style= "position:relative")  
+                    tr.fc-slot29.fc-minor
+                      th.fc-agenda-axis.fc-widget-header  
+                      td.fc-widget-content
+                        div(style= "position:relative")  
+                    tr.fc-slot30
+                      th.fc-agenda-axis.fc-widget-header 15:00
+                      td.fc-widget-content
+                        div(style= "position:relative")  
+                    tr.fc-slot31.fc-minor
+                      th.fc-agenda-axis.fc-widget-header  
+                      td.fc-widget-content
+                        div(style= "position:relative")  
+                    tr.fc-slot32
+                      th.fc-agenda-axis.fc-widget-header 16:00
+                      td.fc-widget-content
+                        div(style= "position:relative")  
+                    tr.fc-slot33.fc-minor
+                      th.fc-agenda-axis.fc-widget-header  
+                      td.fc-widget-content
+                        div(style= "position:relative")  
+                    tr.fc-slot34
+                      th.fc-agenda-axis.fc-widget-header 17:00
+                      td.fc-widget-content
+                        div(style= "position:relative")  
+                    tr.fc-slot35.fc-minor
+                      th.fc-agenda-axis.fc-widget-header  
+                      td.fc-widget-content
+                        div(style= "position:relative")  
+                    tr.fc-slot36
+                      th.fc-agenda-axis.fc-widget-header 18:00
+                      td.fc-widget-content
+                        div(style= "position:relative")  
+                    tr.fc-slot37.fc-minor
+                      th.fc-agenda-axis.fc-widget-header  
+                      td.fc-widget-content
+                        div(style= "position:relative")  
+                    tr.fc-slot38
+                      th.fc-agenda-axis.fc-widget-header 19:00
+                      td.fc-widget-content
+                        div(style= "position:relative")  
+                    tr.fc-slot39.fc-minor
+                      th.fc-agenda-axis.fc-widget-header  
+                      td.fc-widget-content
+                        div(style= "position:relative")  
+                    tr.fc-slot40
+                      th.fc-agenda-axis.fc-widget-header 20:00
+                      td.fc-widget-content
+                        div(style= "position:relative")  
+                    tr.fc-slot41.fc-minor
+                      th.fc-agenda-axis.fc-widget-header  
+                      td.fc-widget-content
+                        div(style= "position:relative")  
+                    tr.fc-slot42
+                      th.fc-agenda-axis.fc-widget-header 21:00
+                      td.fc-widget-content
+                        div(style= "position:relative")  
+                    tr.fc-slot43.fc-minor
+                      th.fc-agenda-axis.fc-widget-header  
+                      td.fc-widget-content
+                        div(style= "position:relative")  
+                    tr.fc-slot44
+                      th.fc-agenda-axis.fc-widget-header 22:00
+                      td.fc-widget-content
+                        div(style= "position:relative")  
+                    tr.fc-slot45.fc-minor
+                      th.fc-agenda-axis.fc-widget-header  
+                      td.fc-widget-content
+                        div(style= "position:relative")  
+                    tr.fc-slot46
+                      th.fc-agenda-axis.fc-widget-header 23:00
+                      td.fc-widget-content
+                        div(style= "position:relative")  
+                    tr.fc-slot47.fc-minor
+                      th.fc-agenda-axis.fc-widget-header  
+                      td.fc-widget-content
+                        div(style= "position:relative")  
+
+
+
 
 append script
   script(src= "/js/jquery.calendario.js", type= "text/javascript")

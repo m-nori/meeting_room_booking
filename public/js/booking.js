@@ -2,11 +2,8 @@ $(function() {
   var $wrapper = $('#custom-inner')
     , $calendar = $('#calendar')
     , cal = $calendar.calendario( {
-        onDayClick : function($el, $contentEl, dateProperties) {
-          console.log($el);
-          console.log($contentEl);
-          console.log(dateProperties);
-        },
+        months : [ '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
+        onDayClick : onDayClick,
         displayWeekAbbr : true
       })
     , $month = $('#custom-month').html(cal.getMonthName())
@@ -19,6 +16,11 @@ $(function() {
   $('#custom-prev').on('click', function() {
     cal.gotoPreviousMonth(updateMonthYear);
   });
+
+  function onDayClick($el, $contentEl, dateProperties) {
+    $('.fc-today').removeClass('fc-today');
+    $el.addClass('fc-today');
+  }
 
   function updateMonthYear() {
     $month.html(cal.getMonthName());

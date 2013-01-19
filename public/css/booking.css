@@ -1,2 +1,9 @@
+#search-booking-title {
+  line-height: 30px;
+  margin: 0px 0px 30px 20px;
+}
 
-
+.fc-widget-name {
+  font-size: 12px;
+  font-weight: normal;
+}
