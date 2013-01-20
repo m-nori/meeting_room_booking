@@ -1,10 +1,10 @@
 extends ../layout
 
 append css
-  link(rel='stylesheet', href='/css/booking.css')
   link(rel='stylesheet', href='/css/calendar.css')
   link(rel='stylesheet', href='/css/calendar_custom.css')
   link(rel='stylesheet', href='/css/fullcalendar.css')
+  link(rel='stylesheet', href='/css/booking.css')
 
 block content
   #content.container-fluid
@@ -24,66 +24,66 @@ block content
             #calendar.fc-calendar-container
       .span10
         div#btn-area
-          a#new.btn.btn-primary(style= "margin-right: 20px;") New Booking
+          a#new.btn.btn-primary(href= "#createBookingModal", style= "margin-right: 20px;", data-toggle= "modal") New Booking
           a#back.btn &lt;
           a#next.btn &gt;
         hr
         .fc-view.fc-view-agendaWeek.fc-agenda(style= "position: relative;", unselectable= "on")
           table.fc-agenda-days.fc-border-separate(style='width: 100%; table-layout: fixed;', cellspacing='0')
             thead
-              tr.fc-first.fc-last
+              tr.fc-first.fc-last(style= 'height: auto; white-space: break-all;')
                 th.fc-agenda-axis.fc-widget-header.fc-first(style='width: 50px;')  
-                th.fc-widget-name.fc-widget-header(data-room)
-                th.fc-widget-name.fc-widget-header(data-room)
-                th.fc-widget-name.fc-widget-header(data-room)
-                th.fc-widget-name.fc-widget-header(data-room)
-                th.fc-widget-name.fc-widget-header(data-room)
-                th.fc-widget-name.fc-widget-header(data-room)
-                th.fc-widget-name.fc-widget-header(data-room)
-                th.fc-widget-name.fc-widget-header(data-room)
-                th.fc-widget-name.fc-widget-header(data-room)
-                th.fc-widget-name.fc-widget-header.fc-last(data-room)
+                th.fc-widget-name.fc-widget-header.fc-disabled(data-room)
+                th.fc-widget-name.fc-widget-header.fc-disabled(data-room)
+                th.fc-widget-name.fc-widget-header.fc-disabled(data-room)
+                th.fc-widget-name.fc-widget-header.fc-disabled(data-room)
+                th.fc-widget-name.fc-widget-header.fc-disabled(data-room)
+                th.fc-widget-name.fc-widget-header.fc-disabled(data-room)
+                th.fc-widget-name.fc-widget-header.fc-disabled(data-room)
+                th.fc-widget-name.fc-widget-header.fc-disabled(data-room)
+                th.fc-widget-name.fc-widget-header.fc-disabled(data-room)
+                th.fc-widget-name.fc-widget-header.fc-disabled.fc-last(data-room)
                 th.fc-agenda-gutter.fc-widget-header.fc-last(style='display: none;')  
             tbody
               tr.fc-first.fc-last
                 th.fc-agenda-axis.fc-widget-header.fc-first  
-                td.fc-sun.fc-widget-content
+                td.fc-sun.fc-widget-content.fc-disabled
                   div(style='height: 730px;')
                     .fc-day-content
                       div(style='position:relative')  
-                td.fc-mon.fc-widget-content
+                td.fc-mon.fc-widget-content.fc-disabled
                   div
                     .fc-day-content
                       div(style='position:relative')  
-                td.fc-tue.fc-widget-content
+                td.fc-tue.fc-widget-content.fc-disabled
                   div
                     .fc-day-content
                       div(style='position:relative')  
-                td.fc-tue.fc-widget-content
+                td.fc-tue.fc-widget-content.fc-disabled
                   div
                     .fc-day-content
                       div(style='position:relative')  
-                td.fc-tue.fc-widget-content
+                td.fc-tue.fc-widget-content.fc-disabled
                   div
                     .fc-day-content
                       div(style='position:relative')  
-                td.fc-tue.fc-widget-content
+                td.fc-tue.fc-widget-content.fc-disabled
                   div
                     .fc-day-content
                       div(style='position:relative')  
-                td.fc-wed.fc-widget-content
+                td.fc-wed.fc-widget-content.fc-disabled
                   div
                     .fc-day-content
                       div(style='position:relative')  
-                td.fc-thu.fc-widget-content
+                td.fc-thu.fc-widget-content.fc-disabled
                   div
                     .fc-day-content
                       div(style='position:relative')  
-                td.fc-fri.fc-widget-content
+                td.fc-fri.fc-widget-content.fc-disabled
                   div
                     .fc-day-content
                       div(style='position:relative')  
-                td.fc-sat.fc-widget-content.fc-last
+                td.fc-sat.fc-widget-content.fc-last.fc-disabled
                   div
                     .fc-day-content
                       div(style='position:relative')  
@@ -288,6 +288,23 @@ block content
                       th.fc-agenda-axis.fc-widget-header  
                       td.fc-widget-content
                         div(style= "position:relative", data-time= "23:30")  
+
+  #createBookingModal.modal.hide.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+    .modal-header
+      button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
+      h3 Input Booking Info
+    .modal-body
+      label.control-label(for= "title") Title
+      input#title.span4(name= "title", type= "text", style= "height: 30px;")
+      label.control-label(for= "room") Meeting Room
+      input#room.span4(name= "room", type= "text", style= "height: 30px;")
+      label.control-label(for= "time") Meeting Time
+      input#start.span1(name= "start", type= "time", style= "height: 30px; width: 70px;")
+      | &nbsp;〜&nbsp;
+      input#end.span1(name= "end", type= "time", style= "height: 30px; width: 70px;")
+    .modal-footer
+      button.btn(data-dismiss='modal', aria-hidden='true') Cancel
+      button.btn.btn-primary Submit
 
 append script
   script(src= "/js/jquery.calendario.js", type= "text/javascript")

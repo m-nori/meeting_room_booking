@@ -36,6 +36,7 @@
   var rooms
     , viewRooms = $('[data-room]')
     , roomOffset = $(viewRooms[0]).width()
+    , viewRoomTime = $("th.fc-agenda-axis.fc-widget-header.fc-first ~ td.fc-disabled")
     , $eventArea = $('#eventArea')
     ;
   var Room = (function() {
@@ -52,6 +53,12 @@
     , new Room({id: "1", name: "Room2"})
     , new Room({id: "2", name: "Room3"})
     , new Room({id: "3", name: "Room4"})
+    , new Room({id: "4", name: "Room5"})
+    , new Room({id: "5", name: "Room6"})
+    , new Room({id: "6", name: "Room7"})
+    , new Room({id: "7", name: "Room8"})
+    , new Room({id: "8", name: "Room9"})
+    , new Room({id: "9", name: "Room10"})
   ];
 
   // 会議室の設定
@@ -59,6 +66,8 @@
     var $view =  $(viewRooms[i]);
     $view.data('room', rooms[i].id);
     $view.text(rooms[i].name);
+    $view.removeClass('fc-disabled');
+    $(viewRoomTime[i]).removeClass('fc-disabled');
   }
 
   // 時間をクリックした時の処理
@@ -114,9 +123,11 @@
       , top = getTopY(booking.start)
       , left = getStartX(booking.roomId)
       , height = getHeight(booking.start, booking.end)
-      , width = roomOffset - 1
+      , width = roomOffset - 3
       ;
-    html += '<div style="position: absolute; z-index: 8; ';
+    html += '<div ';
+    html += '  data-booking= "' + booking.id + '" ';
+    html += '  style="position: absolute; z-index: 8; ';
     html += '  top: ' + top + 'px; left: ' + left + 'px; height: ' + height + 'px; width: ' + width + 'px;"'
     html += '  class="fc-event fc-event-skin fc-event-vert fc-event-draggable fc-corner-top fc-corner-bottom">'
     html += '  <div class="fc-event-inner fc-event-skin">'
@@ -145,14 +156,14 @@
       }
     }
     if(index >= 0) {
-      return 50 + 2 + (index * roomOffset);
+      return 50 + (index * (roomOffset + 2));
     }
   }
 
   function getTopY(time) {
     var index = getTimeIndex(time);
     if(index >= 0) {
-      return 23 + (index * 20)
+      return (index * 21)
     }
   }
 
@@ -161,10 +172,7 @@
       , endIndex = getTimeIndex(endTime)
       , length = (endIndex - startIndex);
       ;
-    console.log(startIndex);
-    console.log(endIndex);
-    console.log(length);
-    return 4 + (20 * length);
+    return (21 * length);
   }
 
   function getTimeIndex(time) {

@@ -7,3 +7,7 @@
   font-size: 12px;
   font-weight: normal;
 }
+
+.fc-disabled {
+  background: #ddd;
+}
