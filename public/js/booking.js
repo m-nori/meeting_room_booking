@@ -1,4 +1,7 @@
 $(function() {
+  /**
+   * カレンダー周りの操作
+   */
   var $wrapper = $('#custom-inner')
     , $calendar = $('#calendar')
     , cal = $calendar.calendario( {
@@ -26,4 +29,8 @@ $(function() {
     $month.html(cal.getMonthName());
     $year.html(cal.getYear());
   }
+
+  /**
+   * 予定表周りの操作
+   */
 });

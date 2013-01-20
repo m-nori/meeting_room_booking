@@ -23,51 +23,67 @@ block content
                 span#custom-month
             #calendar.fc-calendar-container
       .span10
-        a#new.btn.btn-primary(style= "margin-right: 20px;") New Booking
-        a#back.btn &lt;
-        a#next.btn &gt;
+        div#btn-area
+          a#new.btn.btn-primary(style= "margin-right: 20px;") New Booking
+          a#back.btn &lt;
+          a#next.btn &gt;
         hr
         .fc-view.fc-view-agendaWeek.fc-agenda(style= "position: relative;", unselectable= "on")
           table.fc-agenda-days.fc-border-separate(style='width: 100%; table-layout: fixed;', cellspacing='0')
             thead
               tr.fc-first.fc-last
                 th.fc-agenda-axis.fc-widget-header.fc-first(style='width: 50px;')  
-                th.fc-widget-name.fc-widget-header Sun 1/13
-                th.fc-widget-name.fc-widget-header Mon 1/14
-                th.fc-widget-name.fc-widget-header Tue 1/15
-                th.fc-widget-name.fc-widget-header Wed 1/16
-                th.fc-widget-name.fc-widget-header Thu 1/17
-                th.fc-widget-name.fc-widget-header Fri 1/18
-                th.fc-widget-name.fc-widget-header.fc-last Sat 1/19
+                th#room1-name.fc-widget-name.fc-widget-header Room1
+                th#room2-name.fc-widget-name.fc-widget-header Room2
+                th#room3-name.fc-widget-name.fc-widget-header Room3
+                th#room4-name.fc-widget-name.fc-widget-header Room4
+                th#room5-name.fc-widget-name.fc-widget-header Room5
+                th#room6-name.fc-widget-name.fc-widget-header Room6
+                th#room7-name.fc-widget-name.fc-widget-header Room7
+                th#room8-name.fc-widget-name.fc-widget-header Room8
+                th#room9-name.fc-widget-name.fc-widget-header Room9
+                th#room10-name.fc-widget-name.fc-widget-header.fc-last Room10
                 th.fc-agenda-gutter.fc-widget-header.fc-last(style='display: none;')  
             tbody
               tr.fc-first.fc-last
                 th.fc-agenda-axis.fc-widget-header.fc-first  
-                td.fc-sun.fc-col0.fc-widget-content
-                  div(style='height: 700px;')
+                td.fc-sun.fc-widget-content
+                  div(style='height: 730px;')
                     .fc-day-content
                       div(style='position:relative')  
-                td.fc-mon.fc-col1.fc-widget-content
+                td.fc-mon.fc-widget-content
                   div
                     .fc-day-content
                       div(style='position:relative')  
-                td.fc-tue.fc-col2.fc-widget-content
+                td.fc-tue.fc-widget-content
                   div
                     .fc-day-content
                       div(style='position:relative')  
-                td.fc-wed.fc-col3.fc-widget-content
+                td.fc-tue.fc-widget-content
                   div
                     .fc-day-content
                       div(style='position:relative')  
-                td.fc-thu.fc-col4.fc-widget-content
+                td.fc-tue.fc-widget-content
                   div
                     .fc-day-content
                       div(style='position:relative')  
-                td.fc-fri.fc-col5.fc-widget-content
+                td.fc-tue.fc-widget-content
                   div
                     .fc-day-content
                       div(style='position:relative')  
-                td.fc-sat.fc-col6.fc-widget-content.fc-last
+                td.fc-wed.fc-widget-content
+                  div
+                    .fc-day-content
+                      div(style='position:relative')  
+                td.fc-thu.fc-widget-content
+                  div
+                    .fc-day-content
+                      div(style='position:relative')  
+                td.fc-fri.fc-widget-content
+                  div
+                    .fc-day-content
+                      div(style='position:relative')  
+                td.fc-sat.fc-widget-content.fc-last
                   div
                     .fc-day-content
                       div(style='position:relative')  
@@ -75,205 +91,217 @@ block content
           div(style= "position: absolute; z-index: 2; left: 0px; width: 100%; top: 17px;")
             .fc-agenda-divider.fc-widget-header
               .fc-agenda-divider-inner
-            div(style='position: absolute; width: 100%; overflow-x: hidden; overflow-y: auto; height: 700px;')
+            div(style='position: absolute; width: 100%; overflow-x: hidden; overflow-y: auto; height: 730px;')
               div(style='position:relative;width:100%;overflow:hidden')
+                div(style= 'position:absolute;z-index:8;top:0;left:0')
+                  .fc-event.fc-event-skin.fc-event-vert.fc-event-draggable.fc-corner-top.fc-corner-bottom(style='position: absolute; z-index: 8; top: 503px; left: 52px; height: 124px;')
+                    .fc-event-inner.fc-event-skin
+                      .fc-event-head.fc-event-skin
+                        .fc-event-time 12:00 - 15:00
+                      .fc-event-content
+                        .fc-event-title Lunch
+                      .fc-event-bg
+                  .fc-event.fc-event-skin.fc-event-vert.fc-event-draggable.fc-corner-top.fc-corner-bottom(style='position: absolute; z-index: 8; top: 203px; left: 120px; height: 124px;')
+                    .fc-event-inner.fc-event-skin
+                      .fc-event-head.fc-event-skin
+                        .fc-event-time 12:00 - 15:00
+                      .fc-event-content
+                        .fc-event-title Lunch
+                      .fc-event-bg
                 table.fc-agenda-slots(cellspacing= "0", style= "width:100%")
                   tbody
                     tr.fc-slot0
                       th.fc-agenda-axis.fc-widget-header(style= "width: 50px;") 00:00
                       td.fc-widget-content
-                        div(style= "position:relative")  
+                        div(style= "position:relative", data-time= "00:00")  
                     tr.fc-slot1.fc-minor
                       th.fc-agenda-axis.fc-widget-header  
                       td.fc-widget-content
-                        div(style= "position:relative")
+                        div(style= "position:relative", data-time= "00:30")
                     tr.fc-slot2
                       th.fc-agenda-axis.fc-widget-header 01:00
                       td.fc-widget-content
-                        div(style= "position:relative")  
+                        div(style= "position:relative", data-time= "01:00")  
                     tr.fc-slot3.fc-minor
                       th.fc-agenda-axis.fc-widget-header  
                       td.fc-widget-content
-                        div(style= "position:relative")  
+                        div(style= "position:relative", data-time= "01:30")  
                     tr.fc-slot4
                       th.fc-agenda-axis.fc-widget-header 02:00
                       td.fc-widget-content
-                        div(style= "position:relative")  
+                        div(style= "position:relative", data-time= "02:00")  
                     tr.fc-slot5.fc-minor
                       th.fc-agenda-axis.fc-widget-header  
                       td.fc-widget-content
-                        div(style= "position:relative")  
+                        div(style= "position:relative", data-time= "02:30")  
                     tr.fc-slot6
                       th.fc-agenda-axis.fc-widget-header 03:00
                       td.fc-widget-content
-                        div(style= "position:relative")  
+                        div(style= "position:relative", data-time= "03:00")  
                     tr.fc-slot7.fc-minor
                       th.fc-agenda-axis.fc-widget-header  
                       td.fc-widget-content
-                        div(style= "position:relative")  
+                        div(style= "position:relative", data-time= "03:30")  
                     tr.fc-slot8
                       th.fc-agenda-axis.fc-widget-header 04:00
                       td.fc-widget-content
-                        div(style= "position:relative")  
+                        div(style= "position:relative", data-time= "04:00")  
                     tr.fc-slot9.fc-minor
                       th.fc-agenda-axis.fc-widget-header  
                       td.fc-widget-content
-                        div(style= "position:relative")  
+                        div(style= "position:relative", data-time= "04:30")  
                     tr.fc-slot10
                       th.fc-agenda-axis.fc-widget-header 05:00
                       td.fc-widget-content
-                        div(style= "position:relative")  
+                        div(style= "position:relative", data-time= "05:00")  
                     tr.fc-slot11.fc-minor
                       th.fc-agenda-axis.fc-widget-header  
                       td.fc-widget-content
-                        div(style= "position:relative")  
+                        div(style= "position:relative", data-time= "05:30")  
                     tr.fc-slot12
                       th.fc-agenda-axis.fc-widget-header 06:00
                       td.fc-widget-content
-                        div(style= "position:relative")  
+                        div(style= "position:relative", data-time= "06:00")  
                     tr.fc-slot13.fc-minor
                       th.fc-agenda-axis.fc-widget-header  
                       td.fc-widget-content
-                        div(style= "position:relative")  
+                        div(style= "position:relative", data-time= "06:30")  
                     tr.fc-slot14
                       th.fc-agenda-axis.fc-widget-header 07:00
                       td.fc-widget-content
-                        div(style= "position:relative")  
+                        div(style= "position:relative", data-time= "07:00")  
                     tr.fc-slot15.fc-minor
                       th.fc-agenda-axis.fc-widget-header  
                       td.fc-widget-content
-                        div(style= "position:relative")  
+                        div(style= "position:relative", data-time= "07:30")  
                     tr.fc-slot16
                       th.fc-agenda-axis.fc-widget-header 08:00
                       td.fc-widget-content
-                        div(style= "position:relative")  
+                        div(style= "position:relative", data-time= "08:00")  
                     tr.fc-slot17.fc-minor
                       th.fc-agenda-axis.fc-widget-header  
                       td.fc-widget-content
-                        div(style= "position:relative")  
+                        div(style= "position:relative", data-time= "08:30")  
                     tr.fc-slot18
                       th.fc-agenda-axis.fc-widget-header 09:00
                       td.fc-widget-content
-                        div(style= "position:relative")  
+                        div(style= "position:relative", data-time= "09:00")  
                     tr.fc-slot19.fc-minor
                       th.fc-agenda-axis.fc-widget-header  
                       td.fc-widget-content
-                        div(style= "position:relative")  
+                        div(style= "position:relative", data-time= "09:30")  
                     tr.fc-slot20
                       th.fc-agenda-axis.fc-widget-header 10:00
                       td.fc-widget-content
-                        div(style= "position:relative")  
+                        div(style= "position:relative", data-time= "10:00")  
                     tr.fc-slot21.fc-minor
                       th.fc-agenda-axis.fc-widget-header  
                       td.fc-widget-content
-                        div(style= "position:relative")  
+                        div(style= "position:relative", data-time= "10:30")  
                     tr.fc-slot22
                       th.fc-agenda-axis.fc-widget-header 11:00
                       td.fc-widget-content
-                        div(style= "position:relative")  
+                        div(style= "position:relative", data-time= "11:00")  
                     tr.fc-slot23.fc-minor
                       th.fc-agenda-axis.fc-widget-header  
                       td.fc-widget-content
-                        div(style= "position:relative")  
+                        div(style= "position:relative", data-time= "11:30")  
                     tr.fc-slot24
                       th.fc-agenda-axis.fc-widget-header 12:00
                       td.fc-widget-content
-                        div(style= "position:relative")  
+                        div(style= "position:relative", data-time= "12:00")  
                     tr.fc-slot25.fc-minor
                       th.fc-agenda-axis.fc-widget-header  
                       td.fc-widget-content
-                        div(style= "position:relative")  
+                        div(style= "position:relative", data-time= "12:30")  
                     tr.fc-slot26
                       th.fc-agenda-axis.fc-widget-header 13:00
                       td.fc-widget-content
-                        div(style= "position:relative")  
+                        div(style= "position:relative", data-time= "13:00")  
                     tr.fc-slot27.fc-minor
                       th.fc-agenda-axis.fc-widget-header  
                       td.fc-widget-content
-                        div(style= "position:relative")  
+                        div(style= "position:relative", data-time= "13:30")  
                     tr.fc-slot28
                       th.fc-agenda-axis.fc-widget-header 14:00
                       td.fc-widget-content
-                        div(style= "position:relative")  
+                        div(style= "position:relative", data-time= "14:00")  
                     tr.fc-slot29.fc-minor
                       th.fc-agenda-axis.fc-widget-header  
                       td.fc-widget-content
-                        div(style= "position:relative")  
+                        div(style= "position:relative", data-time= "14:30")  
                     tr.fc-slot30
                       th.fc-agenda-axis.fc-widget-header 15:00
                       td.fc-widget-content
-                        div(style= "position:relative")  
+                        div(style= "position:relative", data-time= "15:00")  
                     tr.fc-slot31.fc-minor
                       th.fc-agenda-axis.fc-widget-header  
                       td.fc-widget-content
-                        div(style= "position:relative")  
+                        div(style= "position:relative", data-time= "15:30")  
                     tr.fc-slot32
                       th.fc-agenda-axis.fc-widget-header 16:00
                       td.fc-widget-content
-                        div(style= "position:relative")  
+                        div(style= "position:relative", data-time= "16:00")  
                     tr.fc-slot33.fc-minor
                       th.fc-agenda-axis.fc-widget-header  
                       td.fc-widget-content
-                        div(style= "position:relative")  
+                        div(style= "position:relative", data-time= "16:30")  
                     tr.fc-slot34
                       th.fc-agenda-axis.fc-widget-header 17:00
                       td.fc-widget-content
-                        div(style= "position:relative")  
+                        div(style= "position:relative", data-time= "17:00")  
                     tr.fc-slot35.fc-minor
                       th.fc-agenda-axis.fc-widget-header  
                       td.fc-widget-content
-                        div(style= "position:relative")  
+                        div(style= "position:relative", data-time= "17:30")  
                     tr.fc-slot36
                       th.fc-agenda-axis.fc-widget-header 18:00
                       td.fc-widget-content
-                        div(style= "position:relative")  
+                        div(style= "position:relative", data-time= "18:00")  
                     tr.fc-slot37.fc-minor
                       th.fc-agenda-axis.fc-widget-header  
                       td.fc-widget-content
-                        div(style= "position:relative")  
+                        div(style= "position:relative", data-time= "18:30")  
                     tr.fc-slot38
                       th.fc-agenda-axis.fc-widget-header 19:00
                       td.fc-widget-content
-                        div(style= "position:relative")  
+                        div(style= "position:relative", data-time= "19:00")  
                     tr.fc-slot39.fc-minor
                       th.fc-agenda-axis.fc-widget-header  
                       td.fc-widget-content
-                        div(style= "position:relative")  
+                        div(style= "position:relative", data-time= "19:30")  
                     tr.fc-slot40
                       th.fc-agenda-axis.fc-widget-header 20:00
                       td.fc-widget-content
-                        div(style= "position:relative")  
+                        div(style= "position:relative", data-time= "20:00")  
                     tr.fc-slot41.fc-minor
                       th.fc-agenda-axis.fc-widget-header  
                       td.fc-widget-content
-                        div(style= "position:relative")  
+                        div(style= "position:relative", data-time= "20:30")  
                     tr.fc-slot42
                       th.fc-agenda-axis.fc-widget-header 21:00
                       td.fc-widget-content
-                        div(style= "position:relative")  
+                        div(style= "position:relative", data-time= "21:00")  
                     tr.fc-slot43.fc-minor
                       th.fc-agenda-axis.fc-widget-header  
                       td.fc-widget-content
-                        div(style= "position:relative")  
+                        div(style= "position:relative", data-time= "21:30")  
                     tr.fc-slot44
                       th.fc-agenda-axis.fc-widget-header 22:00
                       td.fc-widget-content
-                        div(style= "position:relative")  
+                        div(style= "position:relative", data-time= "22:00")  
                     tr.fc-slot45.fc-minor
                       th.fc-agenda-axis.fc-widget-header  
                       td.fc-widget-content
-                        div(style= "position:relative")  
+                        div(style= "position:relative", data-time= "22:30")  
                     tr.fc-slot46
                       th.fc-agenda-axis.fc-widget-header 23:00
                       td.fc-widget-content
-                        div(style= "position:relative")  
+                        div(style= "position:relative", data-time= "23:00")  
                     tr.fc-slot47.fc-minor
                       th.fc-agenda-axis.fc-widget-header  
                       td.fc-widget-content
-                        div(style= "position:relative")  
-
-
-
+                        div(style= "position:relative", data-time= "23:30")  
 
 append script
   script(src= "/js/jquery.calendario.js", type= "text/javascript")
