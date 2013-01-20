@@ -33,16 +33,16 @@ block content
             thead
               tr.fc-first.fc-last
                 th.fc-agenda-axis.fc-widget-header.fc-first(style='width: 50px;')  
-                th#room1-name.fc-widget-name.fc-widget-header Room1
-                th#room2-name.fc-widget-name.fc-widget-header Room2
-                th#room3-name.fc-widget-name.fc-widget-header Room3
-                th#room4-name.fc-widget-name.fc-widget-header Room4
-                th#room5-name.fc-widget-name.fc-widget-header Room5
-                th#room6-name.fc-widget-name.fc-widget-header Room6
-                th#room7-name.fc-widget-name.fc-widget-header Room7
-                th#room8-name.fc-widget-name.fc-widget-header Room8
-                th#room9-name.fc-widget-name.fc-widget-header Room9
-                th#room10-name.fc-widget-name.fc-widget-header.fc-last Room10
+                th.fc-widget-name.fc-widget-header(data-room)
+                th.fc-widget-name.fc-widget-header(data-room)
+                th.fc-widget-name.fc-widget-header(data-room)
+                th.fc-widget-name.fc-widget-header(data-room)
+                th.fc-widget-name.fc-widget-header(data-room)
+                th.fc-widget-name.fc-widget-header(data-room)
+                th.fc-widget-name.fc-widget-header(data-room)
+                th.fc-widget-name.fc-widget-header(data-room)
+                th.fc-widget-name.fc-widget-header(data-room)
+                th.fc-widget-name.fc-widget-header.fc-last(data-room)
                 th.fc-agenda-gutter.fc-widget-header.fc-last(style='display: none;')  
             tbody
               tr.fc-first.fc-last
@@ -93,21 +93,7 @@ block content
               .fc-agenda-divider-inner
             div(style='position: absolute; width: 100%; overflow-x: hidden; overflow-y: auto; height: 730px;')
               div(style='position:relative;width:100%;overflow:hidden')
-                div(style= 'position:absolute;z-index:8;top:0;left:0')
-                  .fc-event.fc-event-skin.fc-event-vert.fc-event-draggable.fc-corner-top.fc-corner-bottom(style='position: absolute; z-index: 8; top: 503px; left: 52px; height: 124px;')
-                    .fc-event-inner.fc-event-skin
-                      .fc-event-head.fc-event-skin
-                        .fc-event-time 12:00 - 15:00
-                      .fc-event-content
-                        .fc-event-title Lunch
-                      .fc-event-bg
-                  .fc-event.fc-event-skin.fc-event-vert.fc-event-draggable.fc-corner-top.fc-corner-bottom(style='position: absolute; z-index: 8; top: 203px; left: 120px; height: 124px;')
-                    .fc-event-inner.fc-event-skin
-                      .fc-event-head.fc-event-skin
-                        .fc-event-time 12:00 - 15:00
-                      .fc-event-content
-                        .fc-event-title Lunch
-                      .fc-event-bg
+                div#bookingArea(style= 'position:absolute;z-index:8;top:0;left:0')
                 table.fc-agenda-slots(cellspacing= "0", style= "width:100%")
                   tbody
                     tr.fc-slot0

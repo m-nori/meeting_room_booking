@@ -1,6 +1,6 @@
-$(function() {
+(function($) {
   /**
-   * カレンダー周りの操作
+   * カレンダー周りのイベント
    */
   var $wrapper = $('#custom-inner')
     , $calendar = $('#calendar')
@@ -31,6 +31,156 @@ $(function() {
   }
 
   /**
-   * 予定表周りの操作
+   * 予定表周りのイベント
    */
-});
+  var rooms
+    , viewRooms = $('[data-room]')
+    , roomOffset = $(viewRooms[0]).width()
+    , $eventArea = $('#eventArea')
+    ;
+  var Room = (function() {
+    function Room(o) {
+      this.id = o.id || "0";
+      this.name = o.name || "Room";
+    }
+    return Room;
+  })();
+
+  // TODO: 会議室の取得
+  rooms = [
+      new Room({id: "0", name: "Room1"})
+    , new Room({id: "1", name: "Room2"})
+    , new Room({id: "2", name: "Room3"})
+    , new Room({id: "3", name: "Room4"})
+  ];
+
+  // 会議室の設定
+  for(var i =  0; i < rooms.length; i++) {
+    var $view =  $(viewRooms[i]);
+    $view.data('room', rooms[i].id);
+    $view.text(rooms[i].name);
+  }
+
+  // 時間をクリックした時の処理
+  $(document).on('click', 'div[data-time]', function(e) {
+    var $div = $(this)
+      , time = $div.data('time')
+      , x =  e.pageX - $div.offset().left
+      , room = getRoom(x)
+      ;
+    if(room) {
+      var booking = new Booking({
+          roomId: room.id
+        , start: time
+        , end: "15:00"
+      });
+      console.log(booking);
+      setBooking(booking);
+    }
+    return false;
+  });
+
+  function getRoom(x) {
+    var i = Math.floor(x / roomOffset);
+    if(rooms.length > i) {
+      return rooms[i];
+    }
+    return null;
+  }
+
+  /**
+   * 予定周りのイベント
+   */
+  var $bookingArea = $('#bookingArea')
+    , times = $('div[data-time]')
+    ;
+  var Booking =  (function () {
+    function Booking(o) {
+      this.id =  o.id || "0";
+      this.roomId =  o.roomId || "0";
+      this.title =  o.title || "test";
+      this.start =  o.start || "15:00";
+      this.end =  o.end || "16:00";
+    }
+    return Booking;
+  })();
+
+  function setBooking(booking) {
+    $bookingArea.append(bookingToHtml(booking));
+  }
+
+  function bookingToHtml(booking) {
+    var html = ""
+      , top = getTopY(booking.start)
+      , left = getStartX(booking.roomId)
+      , height = getHeight(booking.start, booking.end)
+      , width = roomOffset - 1
+      ;
+    html += '<div style="position: absolute; z-index: 8; ';
+    html += '  top: ' + top + 'px; left: ' + left + 'px; height: ' + height + 'px; width: ' + width + 'px;"'
+    html += '  class="fc-event fc-event-skin fc-event-vert fc-event-draggable fc-corner-top fc-corner-bottom">'
+    html += '  <div class="fc-event-inner fc-event-skin">'
+    html += '    <div class="fc-event-head fc-event-skin">'
+    html += '      <div class="fc-event-time">'
+    html += booking.start + ' - ' + booking.end;
+    html += '      </div>'
+    html += '    </div>'
+    html += '    <div class="fc-event-content">'
+    html += '      <div class="fc-event-title">'
+    html += booking.title;
+    html += '      </div>'
+    html += '    </div>'
+    html += '    <div class="fc-event-bg"></div>'
+    html += '  </div>'
+    html += '</div>'
+    return html;
+  }
+
+  function getStartX(roomId) {
+    var index = -1;
+    for(var i =  0; i < rooms.length; i++) {
+      if(rooms[i].id === roomId) {
+        index = i;
+        break;
+      }
+    }
+    if(index >= 0) {
+      return 50 + 2 + (index * roomOffset);
+    }
+  }
+
+  function getTopY(time) {
+    var index = getTimeIndex(time);
+    if(index >= 0) {
+      return 23 + (index * 20)
+    }
+  }
+
+  function getHeight(startTime, endTime) {
+    var startIndex = getTimeIndex(startTime)
+      , endIndex = getTimeIndex(endTime)
+      , length = (endIndex - startIndex);
+      ;
+    console.log(startIndex);
+    console.log(endIndex);
+    console.log(length);
+    return 4 + (20 * length);
+  }
+
+  function getTimeIndex(time) {
+    var targetSlotClass
+      , index = -1
+      ;
+    for(var i = 0; i < times.length; i++) {
+      $div = $(times[i]);
+      if($div.data('time') === time) {
+        targetSlotClass = $div.parent().parent().attr('class');
+        index = parseInt(targetSlotClass.substring(7));
+        break;
+      }
+    }
+    return index;
+  }
+
+})( jQuery );
+
