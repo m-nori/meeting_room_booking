@@ -1,4 +1,16 @@
 (function($) {
+  // pub/sub
+  var o =  $({});
+  $.subscribe =  function() {
+    o.on.apply(o, arguments);
+  };
+  $.unsubscribe =  function() {
+    o.off.apply(o, arguments);
+  };
+  $.publish =  function() {
+    o.trigger.apply(o, arguments);
+  };
+
   // Handles "data-method" on links such as:
   // <a href="/users/5" data-method="delete" rel="nofollow" data-confirm="Are you sure?">Delete</a>
   function handleMethod(link) {

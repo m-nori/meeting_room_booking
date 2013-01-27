@@ -31,67 +31,13 @@ block content
         .fc-view.fc-view-agendaWeek.fc-agenda(style= "position: relative;", unselectable= "on")
           table.fc-agenda-days.fc-border-separate(style='width: 100%; table-layout: fixed;', cellspacing='0')
             thead
-              tr.fc-first.fc-last(style= 'height: auto; white-space: break-all;')
-                th.fc-agenda-axis.fc-widget-header.fc-first(style='width: 50px;')  
-                th.fc-widget-name.fc-widget-header.fc-disabled(data-room)
-                th.fc-widget-name.fc-widget-header.fc-disabled(data-room)
-                th.fc-widget-name.fc-widget-header.fc-disabled(data-room)
-                th.fc-widget-name.fc-widget-header.fc-disabled(data-room)
-                th.fc-widget-name.fc-widget-header.fc-disabled(data-room)
-                th.fc-widget-name.fc-widget-header.fc-disabled(data-room)
-                th.fc-widget-name.fc-widget-header.fc-disabled(data-room)
-                th.fc-widget-name.fc-widget-header.fc-disabled(data-room)
-                th.fc-widget-name.fc-widget-header.fc-disabled(data-room)
-                th.fc-widget-name.fc-widget-header.fc-disabled.fc-last(data-room)
-                th.fc-agenda-gutter.fc-widget-header.fc-last(style='display: none;')  
+              tr#booking-rooms-header.fc-first.fc-last(style= 'height: auto; white-space: break-all;')
             tbody
-              tr.fc-first.fc-last
-                th.fc-agenda-axis.fc-widget-header.fc-first  
-                td.fc-sun.fc-widget-content.fc-disabled
-                  div(style='height: 730px;')
-                    .fc-day-content
-                      div(style='position:relative')  
-                td.fc-mon.fc-widget-content.fc-disabled
-                  div
-                    .fc-day-content
-                      div(style='position:relative')  
-                td.fc-tue.fc-widget-content.fc-disabled
-                  div
-                    .fc-day-content
-                      div(style='position:relative')  
-                td.fc-tue.fc-widget-content.fc-disabled
-                  div
-                    .fc-day-content
-                      div(style='position:relative')  
-                td.fc-tue.fc-widget-content.fc-disabled
-                  div
-                    .fc-day-content
-                      div(style='position:relative')  
-                td.fc-tue.fc-widget-content.fc-disabled
-                  div
-                    .fc-day-content
-                      div(style='position:relative')  
-                td.fc-wed.fc-widget-content.fc-disabled
-                  div
-                    .fc-day-content
-                      div(style='position:relative')  
-                td.fc-thu.fc-widget-content.fc-disabled
-                  div
-                    .fc-day-content
-                      div(style='position:relative')  
-                td.fc-fri.fc-widget-content.fc-disabled
-                  div
-                    .fc-day-content
-                      div(style='position:relative')  
-                td.fc-sat.fc-widget-content.fc-last.fc-disabled
-                  div
-                    .fc-day-content
-                      div(style='position:relative')  
-                td.fc-agenda-gutter.fc-widget-content.fc-last(style='display: none;')  
+              tr#booking-rooms-body.fc-first.fc-last
           div(style= "position: absolute; z-index: 2; left: 0px; width: 100%; top: 17px;")
             .fc-agenda-divider.fc-widget-header
               .fc-agenda-divider-inner
-            div(style='position: absolute; width: 100%; overflow-x: hidden; overflow-y: auto; height: 730px;')
+            div#booking-time-area(style='position: absolute; width: 100%; overflow-x: hidden; overflow-y: auto; height: 730px;')
               div(style='position:relative;width:100%;overflow:hidden')
                 div#bookingArea(style= 'position:absolute;z-index:8;top:0;left:0')
                 table.fc-agenda-slots(cellspacing= "0", style= "width:100%")
@@ -307,5 +253,49 @@ block content
       button.btn.btn-primary Submit
 
 append script
-  script(src= "/js/jquery.calendario.js", type= "text/javascript")
+  script(src= "/js/lib/jquery.calendario.js", type= "text/javascript")
+  script(src= "/js/lib/jquery.tmpl.min.js", type= "text/javascript")
+  script(id= "booking-rooms-header-view", type= "text/x-jquery-tmpl")
+    <th style= "width: 50px;" class= "fc-agenda-axis fc-widget-header fc-first">&nbsp;</th>
+    {{each rooms}}
+    <th data-room= "" class= "fc-widget-name fc-widget-header"></th>
+    {{/each}}
+    <th data-room= "" class= "fc-widget-name fc-widget-header fc-last"></th>
+    <th style= "display: none;" class= "fc-agenda-gutter fc-widget-header fc-last">&nbsp;</th>
+  script(id= "booking-rooms-body-view", type= "text/x-jquery-tmpl")
+    <th class= "fc-agenda-axis fc-widget-header fc-first">&nbsp;</th>
+    {{each rooms}}
+    <td class= "fc-sun fc-widget-content">
+    <div style= "height: 730px;">
+    <div class= "fc-day-content">
+    <div style= "position:relative">&nbsp;</div>
+    </div>
+    </div>
+    </td>
+    {{/each}}
+    <td class= "fc-sat fc-widget-content fc-last">
+    <div>
+    <div class= "fc-day-content">
+    <div style= "position:relative">&nbsp;</div>
+    </div>
+    </div>
+    </td>
+    <td style= "display: none;" class= "fc-agenda-gutter fc-widget-content fc-last">&nbsp;</td>
+  script(id= "booking-view", type= "text/x-jquery-tmpl")
+    <div data-booking= "${booking.id}" style="position: absolute;z-index: 8;top: ${top}px;left: ${left}px;height: ${height}px;width: ${width}px;" class="fc-event fc-event-skin fc-event-vert fc-event-draggable fc-corner-top fc-corner-bottom">
+    <div class="fc-event-inner fc-event-skin">
+    <div class="fc-event-head fc-event-skin">
+    <div class="fc-event-time">${booking.start}&nbsp;-&nbsp:${booking.end}</div>
+    </div>
+    <div class="fc-event-content">
+    <div class="fc-event-title">${booking.title}</div>
+    </div>
+    <div class="fc-event-bg"></div>
+    </div>
+    </div>
+  script
+    var bookingOption = {
+        roomCount: 10
+      , startTime: "06:30"
+    };
   script(src= "/js/booking.js", type= "text/javascript")
