@@ -102,8 +102,8 @@
       for(var i = 0; i < rooms.length; i++) {
         rooms[i] = this.collect[i] ? this.collect[i] : new Room({}) ;
       }
-      $('#booking-rooms-header').append(_.template($('#booking-rooms-header-view').text(), data));
-      $('#booking-rooms-body').append(_.template($('#booking-rooms-body-view').text(), data));
+      $('#booking-rooms-header').html(_.template($('#booking-rooms-header-view').text(), data));
+      $('#booking-rooms-body').html(_.template($('#booking-rooms-body-view').text(), data));
       $('#booking-time-area').scrollTop(y);
     },
     roomClick: function(e) {
@@ -123,7 +123,7 @@
     },
     getRoom: function(x) {
       var i = Math.floor(x / roomOffset);
-      return rooms.length > i ? rooms[i] : null;
+      return this.collect.length > i ? rooms[i] : null;
     }
   });
 
