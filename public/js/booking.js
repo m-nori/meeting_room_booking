@@ -1,14 +1,6 @@
 (function($, option) {
   // TODO: リファクタリング必須
-  var $calendar = $('#calendar')
-    , cal = $calendar.calendario( {
-        months : [ '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
-        onDayClick : onDayClick,
-        displayWeekAbbr : true
-      })
-    , $month = $('#custom-month').html(cal.getMonthName())
-    , $year = $('#custom-year').html(cal.getYear())
-    , $bookingArea = $('#bookingArea')
+  var $bookingArea = $('#bookingArea')
     , times = $('div[data-time]')
     , rooms
     , roomOffset
@@ -54,16 +46,51 @@
   })();
 
   /**
-   * Controller
+   * View
    */
+  var CalendarView = Backbone.View.extend({
+    events: {
+      'click .custom-next': 'nextMonth',
+      'click .custom-prev': 'previousMonth'
+    },
+    render: function() {
+      this.cal = $(".fc-calendar-container", this.el).calendario({
+        months : [ '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
+        onDayClick : this.dayClick,
+        displayWeekAbbr : true
+      });
+      this.month = $('#custom-month').html(this.cal.getMonthName())
+      this.year = $('#custom-year').html(this.cal.getYear())
+    },
+    nextMonth: function(e) {
+      this.cal.gotoNextMonth($.proxy(this.updateMonthYear, this));
+    },
+    previousMonth: function(e) {
+      this.cal.gotoPreviousMonth($.proxy(this.updateMonthYear, this));
+    },
+    updateMonthYear: function() {
+      this.month.html(this.cal.getMonthName());
+      this.year.html(this.cal.getYear());
+    },
+    dayClick: function($el, $contentEl, dateProperties) {
+      $('.fc-today').removeClass('fc-today');
+      $el.addClass('fc-today');
+    }
+  });
+
+  /**
+   * Document Ready
+   */
+  $(function() {
+    new CalendarView({el: $('#calendar-view')}).render();
+  });
 
   /**
    * 表示設定
    */
   function initRoom(option) {
-    var roopCount = option.roomCount - 1;
-    $('#booking-rooms-header-view').tmpl({rooms: new Array(roopCount)}).appendTo('#booking-rooms-header');
-    $('#booking-rooms-body-view').tmpl({rooms: new Array(roopCount)}).appendTo('#booking-rooms-body');
+    $('#booking-rooms-header').append(_.template($('#booking-rooms-header-view').text(), option));
+    $('#booking-rooms-body').append(_.template($('#booking-rooms-body-view').text(), option));
   }
   function initStartTime(option) {
     var y = getTopY(option.startTime);
@@ -73,26 +100,6 @@
   initStartTime(option);
   viewRooms = $('[data-room]')
   roomOffset = $(viewRooms[0]).width();
-
-  /**
-   * カレンダー周りのイベント
-   */
-  $('#custom-next').on('click', function() {
-    cal.gotoNextMonth(updateMonthYear);
-  });
-  $('#custom-prev').on('click', function() {
-    cal.gotoPreviousMonth(updateMonthYear);
-  });
-
-  function onDayClick($el, $contentEl, dateProperties) {
-    $('.fc-today').removeClass('fc-today');
-    $el.addClass('fc-today');
-  }
-
-  function updateMonthYear() {
-    $month.html(cal.getMonthName());
-    $year.html(cal.getYear());
-  }
 
   /**
    * 予定表周りのイベント
@@ -150,7 +157,7 @@
       , width = roomOffset - 3
       , data = {booking: booking, top: top, left: left, height: height, width: width}
       ;
-    return $('#booking-view').tmpl(data);
+    return _.template($('#booking-view').text(), data);
   }
 
   function getStartX(roomId) {

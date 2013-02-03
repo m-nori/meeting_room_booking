@@ -11,17 +11,17 @@ block content
     .row-fluid
       .span2
         h3#search-booking-title Search Booking
-        .custom-calendar-wrap
-          #custom-inner.custom-inner
+        #calendar-view.custom-calendar-wrap
+          .custom-inner
             .custom-header.clearfix
               nav
-                span#custom-prev.custom-prev
-                span#custom-next.custom-next
+                span.custom-prev
+                span.custom-next
               h4.custom-year
                 span#custom-year
                 span &nbsp;/&nbsp;
                 span#custom-month
-            #calendar.fc-calendar-container
+            .fc-calendar-container
       .span10
         div#btn-area
           a#new.btn.btn-primary(href= "#createBookingModal", style= "margin-right: 20px;", data-toggle= "modal") New Booking
@@ -253,46 +253,55 @@ block content
       button.btn.btn-primary Submit
 
 append script
+  script(src= "/js/lib/underscore-min.js", type= "text/javascript")
+  script(src= "/js/lib/backbone-min.js", type= "text/javascript")
   script(src= "/js/lib/jquery.calendario.js", type= "text/javascript")
-  script(src= "/js/lib/jquery.tmpl.min.js", type= "text/javascript")
-  script(id= "booking-rooms-header-view", type= "text/x-jquery-tmpl")
-    <th style= "width: 50px;" class= "fc-agenda-axis fc-widget-header fc-first">&nbsp;</th>
-    {{each rooms}}
-    <th data-room= "" class= "fc-widget-name fc-widget-header"></th>
-    {{/each}}
-    <th data-room= "" class= "fc-widget-name fc-widget-header fc-last"></th>
-    <th style= "display: none;" class= "fc-agenda-gutter fc-widget-header fc-last">&nbsp;</th>
-  script(id= "booking-rooms-body-view", type= "text/x-jquery-tmpl")
-    <th class= "fc-agenda-axis fc-widget-header fc-first">&nbsp;</th>
-    {{each rooms}}
-    <td class= "fc-sun fc-widget-content">
-    <div style= "height: 730px;">
-    <div class= "fc-day-content">
-    <div style= "position:relative">&nbsp;</div>
-    </div>
-    </div>
-    </td>
-    {{/each}}
-    <td class= "fc-sat fc-widget-content fc-last">
-    <div>
-    <div class= "fc-day-content">
-    <div style= "position:relative">&nbsp;</div>
-    </div>
-    </div>
-    </td>
-    <td style= "display: none;" class= "fc-agenda-gutter fc-widget-content fc-last">&nbsp;</td>
-  script(id= "booking-view", type= "text/x-jquery-tmpl")
-    <div data-booking= "${booking.id}" style="position: absolute;z-index: 8;top: ${top}px;left: ${left}px;height: ${height}px;width: ${width}px;" class="fc-event fc-event-skin fc-event-vert fc-event-draggable fc-corner-top fc-corner-bottom">
-    <div class="fc-event-inner fc-event-skin">
-    <div class="fc-event-head fc-event-skin">
-    <div class="fc-event-time">${booking.start}&nbsp;-&nbsp:${booking.end}</div>
-    </div>
-    <div class="fc-event-content">
-    <div class="fc-event-title">${booking.title}</div>
-    </div>
-    <div class="fc-event-bg"></div>
-    </div>
-    </div>
+  script(id= "booking-rooms-header-view", type= "text/template")
+    |<th style= "width: 50px;" class= "fc-agenda-axis fc-widget-header fc-first">&nbsp;</th>
+    |<% for(var i = 0; i < roomCount; i++) { %>
+    |  <% if(i < (roomCount -1)) { %>
+    |    <th data-room= "" class= "fc-widget-name fc-widget-header"></th>
+    |  <% } else { %>
+    |    <th data-room= "" class= "fc-widget-name fc-widget-header fc-last"></th>
+    |  <% } %>
+    |<% } %>
+    |<th style= "display: none;" class= "fc-agenda-gutter fc-widget-header fc-last">&nbsp;</th>
+  script(id= "booking-rooms-body-view", type= "text/template")
+    |<th class= "fc-agenda-axis fc-widget-header fc-first">&nbsp;</th>
+    |<% for(var i = 0; i < roomCount; i++) { %>
+    |  <% if(i < (roomCount -1)) { %>
+    |    <td class= "fc-sun fc-widget-content">
+    |      <div style= "height: 730px;">
+    |        <div class= "fc-day-content">
+    |          <div style= "position:relative">&nbsp;</div>
+    |        </div>
+    |      </div>
+    |    </td>
+    |  <% } else { %>
+    |    <td class= "fc-sat fc-widget-content fc-last">
+    |      <div>
+    |        <div class= "fc-day-content">
+    |          <div style= "position:relative">&nbsp;</div>
+    |        </div>
+    |      </div>
+    |    </td>
+    |  <% } %>
+    |<% } %>
+    |<td style= "display: none;" class= "fc-agenda-gutter fc-widget-content fc-last">&nbsp;</td>
+  script(id= "booking-view", type= "text/template")
+    |<div data-booking= "<%=booking.id%>"
+    |  style="position: absolute;z-index: 8;top: <%=top%>px;left: <%=left%>px;height: <%=height%>px;width: <%=width%>px;"
+    |  class="fc-event fc-event-skin fc-event-vert fc-event-draggable fc-corner-top fc-corner-bottom">
+    |  <div class="fc-event-inner fc-event-skin">
+    |    <div class="fc-event-head fc-event-skin">
+    |      <div class="fc-event-time"><%=booking.start%>&nbsp;-&nbsp:<%=booking.end%></div>
+    |    </div>
+    |  <div class="fc-event-content">
+    |    <div class="fc-event-title"><%=booking.title%></div>
+    |  </div>
+    |  <div class="fc-event-bg"></div>
+    |  </div>
+    |</div>
   script
     var bookingOption = {
         roomCount: 10
