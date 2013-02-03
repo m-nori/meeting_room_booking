@@ -28,7 +28,7 @@ block content
           a#back.btn &lt;
           a#next.btn &gt;
         hr
-        .fc-view.fc-view-agendaWeek.fc-agenda(style= "position: relative;", unselectable= "on")
+        #booking-rooms.fc-view.fc-view-agendaWeek.fc-agenda(style= "position: relative;", unselectable= "on")
           table.fc-agenda-days.fc-border-separate(style='width: 100%; table-layout: fixed;', cellspacing='0')
             thead
               tr#booking-rooms-header.fc-first.fc-last(style= 'height: auto; white-space: break-all;')
@@ -258,34 +258,32 @@ append script
   script(src= "/js/lib/jquery.calendario.js", type= "text/javascript")
   script(id= "booking-rooms-header-view", type= "text/template")
     |<th style= "width: 50px;" class= "fc-agenda-axis fc-widget-header fc-first">&nbsp;</th>
-    |<% for(var i = 0; i < roomCount; i++) { %>
-    |  <% if(i < (roomCount -1)) { %>
-    |    <th data-room= "" class= "fc-widget-name fc-widget-header"></th>
+    |<% for(var i = 0; i < rooms.length; i++) { %>
+    |  <% var disabled = rooms[i].id === "" ? 'fc-disabled' : ''; %>
+    |  <th data-room= "<%=rooms[i].id%>"
+    |  <% if(i < (rooms.length -1)) { %>
+    |    class= "fc-widget-name fc-widget-header <%=disabled%>">
     |  <% } else { %>
-    |    <th data-room= "" class= "fc-widget-name fc-widget-header fc-last"></th>
+    |    class= "fc-widget-name fc-widget-header fc-last <%=disabled%>">
     |  <% } %>
+    |  <%=rooms[i].name%></th>
     |<% } %>
     |<th style= "display: none;" class= "fc-agenda-gutter fc-widget-header fc-last">&nbsp;</th>
   script(id= "booking-rooms-body-view", type= "text/template")
     |<th class= "fc-agenda-axis fc-widget-header fc-first">&nbsp;</th>
-    |<% for(var i = 0; i < roomCount; i++) { %>
-    |  <% if(i < (roomCount -1)) { %>
-    |    <td class= "fc-sun fc-widget-content">
-    |      <div style= "height: 730px;">
-    |        <div class= "fc-day-content">
-    |          <div style= "position:relative">&nbsp;</div>
-    |        </div>
-    |      </div>
-    |    </td>
+    |<% for(var i = 0; i < rooms.length; i++) { %>
+    |  <% var disabled = rooms[i].id === "" ? 'fc-disabled' : ''; %>
+    |  <% if(i < (rooms.length -1)) { %>
+    |    <td class= "fc-sun fc-widget-content <%=disabled%>">
     |  <% } else { %>
-    |    <td class= "fc-sat fc-widget-content fc-last">
-    |      <div>
-    |        <div class= "fc-day-content">
-    |          <div style= "position:relative">&nbsp;</div>
-    |        </div>
-    |      </div>
-    |    </td>
+    |    <td class= "fc-sat fc-widget-content fc-last <%=disabled%>">
     |  <% } %>
+    |    <div style= "height: 730px;">
+    |      <div class= "fc-day-content">
+    |        <div style= "position:relative">&nbsp;</div>
+    |      </div>
+    |    </div>
+    |  </td>
     |<% } %>
     |<td style= "display: none;" class= "fc-agenda-gutter fc-widget-content fc-last">&nbsp;</td>
   script(id= "booking-view", type= "text/template")
